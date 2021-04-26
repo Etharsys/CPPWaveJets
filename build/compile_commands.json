@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build",
+  "command": "/usr/bin/g++-9    -g   -Wall -Wextra -Werror -Wshadow -std=gnu++17 -o CMakeFiles/wavejets.dir/src/main.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/main.cpp",
+  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/src/main.cpp"
+}
+]
