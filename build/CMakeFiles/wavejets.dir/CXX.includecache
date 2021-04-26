@@ -6,7 +6,19 @@
 
 #IncludeRegexTransform: 
 
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/binomial/binomial.hpp
+
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/binomial/misc.hpp
+array
+-
+iostream
+-
+binomial.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/binomial/binomial.hpp
+
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/main.cpp
 iostream
 -
+binomial/misc.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/binomial/misc.hpp
 

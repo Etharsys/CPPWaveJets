@@ -4,6 +4,7 @@ project(wavejets)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 add_executable(wavejets
+  src/binomial/binomial.hpp
 	src/main.cpp
 )
 
