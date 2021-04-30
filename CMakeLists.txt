@@ -4,8 +4,12 @@ project(wavejets)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 add_executable(wavejets
-  src/binomial/binomial.hpp
-	src/main.cpp
+  src/operation/binomial.hpp
+	src/operation/factorial.hpp
+  src/operation/misc.hpp
+  src/wavejet.hpp
+  src/wavejet.cpp
+  src/main.cpp
 )
 
 ###################

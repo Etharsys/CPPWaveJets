@@ -1,3 +1,5 @@
+#pragma once
+
 const uintptr_t MAX_BINOMIAL = 31;
 
 const std::array<uint32_t, 31*31> BINOMIAL =

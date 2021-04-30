@@ -153,6 +153,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/wavejet.o: src/wavejet.cpp.o
+
+.PHONY : src/wavejet.o
+
+# target to build an object file
+src/wavejet.cpp.o:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejet.cpp.o
+.PHONY : src/wavejet.cpp.o
+
+src/wavejet.i: src/wavejet.cpp.i
+
+.PHONY : src/wavejet.i
+
+# target to preprocess a source file
+src/wavejet.cpp.i:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejet.cpp.i
+.PHONY : src/wavejet.cpp.i
+
+src/wavejet.s: src/wavejet.cpp.s
+
+.PHONY : src/wavejet.s
+
+# target to generate assembly for a file
+src/wavejet.cpp.s:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejet.cpp.s
+.PHONY : src/wavejet.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,6 +192,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/wavejet.o"
+	@echo "... src/wavejet.i"
+	@echo "... src/wavejet.s"
 .PHONY : help
 
 

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "binomial/misc.hpp"
+#include "wavejet.hpp"
 
 using namespace std;
 
@@ -11,7 +11,6 @@ int main(int argc, char** argv)
         cout << argc << argv << endl;
     }
 
-    
 
     return 0;
 }

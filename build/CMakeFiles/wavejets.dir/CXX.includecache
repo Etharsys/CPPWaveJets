@@ -6,19 +6,31 @@
 
 #IncludeRegexTransform: 
 
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/binomial/binomial.hpp
-
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/binomial/misc.hpp
-array
--
-iostream
--
-binomial.hpp
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/binomial/binomial.hpp
-
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/main.cpp
 iostream
 -
-binomial/misc.hpp
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/binomial/misc.hpp
+wavejet.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
+
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.cpp
+wavejet.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
+
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
+cassert
+-
+iostream
+-
+math.h
+-
+complex
+-
+Eigen/Core
+-
+Eigen/Dense
+-
+Eigen/SVD
+-
+Eigen/IterativeLinearSolvers
+-
 
