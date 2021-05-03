@@ -46,6 +46,18 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "complex": "cpp",
-        "core": "cpp"
+        "core": "cpp",
+        "chrono": "cpp",
+        "list": "cpp",
+        "unordered_set": "cpp",
+        "condition_variable": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "ratio": "cpp",
+        "iomanip": "cpp",
+        "mutex": "cpp",
+        "thread": "cpp"
     }
 }

@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -Wall -Wextra -Werror -Wshadow -std=gnu++17
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -isystem /usr/include/opencv4 
 

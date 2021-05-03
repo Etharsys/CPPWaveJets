@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/wavejets.dir/src/CloudDots.cpp.o"
   "CMakeFiles/wavejets.dir/src/main.cpp.o"
   "CMakeFiles/wavejets.dir/src/wavejet.cpp.o"
   "wavejets"

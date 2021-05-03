@@ -73,9 +73,22 @@ CMakeFiles/wavejets.dir/src/wavejet.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wavejets.dir/src/wavejet.cpp.s"
 	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.cpp -o CMakeFiles/wavejets.dir/src/wavejet.cpp.s
 
+CMakeFiles/wavejets.dir/src/CloudDots.cpp.o: CMakeFiles/wavejets.dir/flags.make
+CMakeFiles/wavejets.dir/src/CloudDots.cpp.o: ../src/CloudDots.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/wavejets.dir/src/CloudDots.cpp.o"
+	/usr/bin/g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/wavejets.dir/src/CloudDots.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.cpp
+
+CMakeFiles/wavejets.dir/src/CloudDots.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wavejets.dir/src/CloudDots.cpp.i"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.cpp > CMakeFiles/wavejets.dir/src/CloudDots.cpp.i
+
+CMakeFiles/wavejets.dir/src/CloudDots.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wavejets.dir/src/CloudDots.cpp.s"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.cpp -o CMakeFiles/wavejets.dir/src/CloudDots.cpp.s
+
 CMakeFiles/wavejets.dir/src/main.cpp.o: CMakeFiles/wavejets.dir/flags.make
 CMakeFiles/wavejets.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/wavejets.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/wavejets.dir/src/main.cpp.o"
 	/usr/bin/g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/wavejets.dir/src/main.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/main.cpp
 
 CMakeFiles/wavejets.dir/src/main.cpp.i: cmake_force
@@ -89,16 +102,66 @@ CMakeFiles/wavejets.dir/src/main.cpp.s: cmake_force
 # Object files for target wavejets
 wavejets_OBJECTS = \
 "CMakeFiles/wavejets.dir/src/wavejet.cpp.o" \
+"CMakeFiles/wavejets.dir/src/CloudDots.cpp.o" \
 "CMakeFiles/wavejets.dir/src/main.cpp.o"
 
 # External object files for target wavejets
 wavejets_EXTERNAL_OBJECTS =
 
 wavejets: CMakeFiles/wavejets.dir/src/wavejet.cpp.o
+wavejets: CMakeFiles/wavejets.dir/src/CloudDots.cpp.o
 wavejets: CMakeFiles/wavejets.dir/src/main.cpp.o
 wavejets: CMakeFiles/wavejets.dir/build.make
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_bgsegm.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_bioinspired.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_ccalib.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_dnn_objdetect.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_dnn_superres.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_dpm.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_face.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_freetype.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_fuzzy.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_hdf.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_hfs.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_img_hash.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_line_descriptor.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_quality.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_reg.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_rgbd.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_saliency.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_shape.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_stereo.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_structured_light.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_superres.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_surface_matching.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_tracking.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_text.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_dnn.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_phase_unwrapping.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_optflow.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_ximgproc.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_video.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_videoio.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
+wavejets: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
 wavejets: CMakeFiles/wavejets.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable wavejets"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable wavejets"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/wavejets.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

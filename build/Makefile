@@ -126,6 +126,33 @@ wavejets/fast:
 	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/build
 .PHONY : wavejets/fast
 
+src/CloudDots.o: src/CloudDots.cpp.o
+
+.PHONY : src/CloudDots.o
+
+# target to build an object file
+src/CloudDots.cpp.o:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CloudDots.cpp.o
+.PHONY : src/CloudDots.cpp.o
+
+src/CloudDots.i: src/CloudDots.cpp.i
+
+.PHONY : src/CloudDots.i
+
+# target to preprocess a source file
+src/CloudDots.cpp.i:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CloudDots.cpp.i
+.PHONY : src/CloudDots.cpp.i
+
+src/CloudDots.s: src/CloudDots.cpp.s
+
+.PHONY : src/CloudDots.s
+
+# target to generate assembly for a file
+src/CloudDots.cpp.s:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CloudDots.cpp.s
+.PHONY : src/CloudDots.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -189,6 +216,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... wavejets"
+	@echo "... src/CloudDots.o"
+	@echo "... src/CloudDots.i"
+	@echo "... src/CloudDots.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

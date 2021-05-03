@@ -5,21 +5,29 @@
 #include <math.h>
 #include <complex>
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/viz/viz3d.hpp>
+
+
 #include <Eigen/Core>
 #include <Eigen/Dense>
 #include <Eigen/SVD>
 #include <Eigen/IterativeLinearSolvers>
 
+#include "config.hpp"
+
+
+using Neighbors = std::array<cv::Point3d, MAX_CLOUD_POINTS>;
 
 template <unsigned int Order>
 class Wavejet
 {
     public :
-        Wavejet (Eigen::Vector3d p, 
-                 Eigen::MatrixXd neighbors, 
+        Wavejet (cv::Point3d p, 
+                 Neighbors neighbors, 
                  double neighbor_radius)
-            : _p { p }, 
-              _neighbors { neighbors }, 
+            : _p { Eigen::Vector3d { p.x, p.y, p.z } }, 
+              _neighbors { array_to_matrixXd(neighbors) }, 
               _nr { neighbor_radius }
         {
             assert(neighbor_radius >= 0);
@@ -33,17 +41,43 @@ class Wavejet
         {
             set_lines_cols();
             auto svdV = neighbours_principal_vector();
+
             switch_polar_coords(neighbours_coords(svdV));
             return compute_phi();
         }
 
-        void display_phi()
+        void display_svdV(cv::viz::Viz3d& cam)
         {
-            std::cout << "cc" << std::endl;
+            cv::Point3d ori { _p(0) , _p(1) , _p(2) };
+            cam.showWidget("origin", cv::viz::WCloud(std::vector {ori}, cv::viz::Color::green()));
+            cv::Point3d t1  { _t1(0) * 100, _t1(1) * 100, _t1(2) * 100};
+            cam.showWidget("t1", cv::viz::WLine(ori, t1, cv::viz::Color::blue()));
+            cv::Point3d t2  { _t2(0) * 100, _t2(1) * 100, _t2(2) * 100};
+            cam.showWidget("t2", cv::viz::WLine(ori, t2, cv::viz::Color::blue()));
+            cv::Point3d nm  { _normal(0) * 100, _normal(1) * 100, _normal(2) * 100};
+            cam.showWidget("normal", cv::viz::WLine(ori, nm, cv::viz::Color::red()));
+        }
+
+        std::ostream& operator<< (std::ostream& stream)
+        {
+            return stream << Order << "-Wavejets : " << std::endl << _phi;
         }
 
 
     private :
+
+        Eigen::MatrixXd array_to_matrixXd(Neighbors neighbors)
+        {
+            u_int i = 0;
+            Eigen::MatrixXd mat { 3, MAX_CLOUD_POINTS };
+            for (const auto& p : neighbors)
+            {
+                mat(0, i) = p.x;
+                mat(1, i) = p.y;
+                mat(2, i) = p.z;
+            }
+            return mat;
+        }
 
         /**
          * @brief set nneigh (number of neighbors) and ncolPhi (wrt Order) 
@@ -139,21 +173,21 @@ class Wavejet
         
         
 
-        unsigned int    _nneigh;        // number of neighbors
-        unsigned int    _ncolPhi;       // number of Phi matrix columns
+        unsigned int     _nneigh;        // number of neighbors
+        unsigned int     _ncolPhi;       // number of Phi matrix columns
 
-        Eigen::Vector3d _p;             // entry point (1x3)
-        Eigen::MatrixXd _neighbors;     // neighbors dots (nx3)
-        double          _nr;            // neighborhood radius (>0 !)
+        Eigen::Vector3d  _p;             // entry point (1x3)
+        Eigen::MatrixXd  _neighbors;     // neighbors dots (nx3)
+        double           _nr;            // neighborhood radius (>0 !)
 
-        Eigen::Vector3d _t1;            // neighbors average length vector
-        Eigen::Vector3d _t2;            // neighbors average width vector
-        Eigen::Vector3d _normal;        // neighbors average normal
+        Eigen::Vector3d  _t1;            // neighbors average length vector
+        Eigen::Vector3d  _t2;            // neighbors average width vector
+        Eigen::Vector3d  _normal;        // neighbors average normal
 
-        Eigen::Vector3d _radius;        // polar r (>0 !)
-        Eigen::Vector3d _theta;         // polar theta
-        Eigen::Vector3d _z;             // polar z
+        Eigen::Vector3d  _radius;        // polar r (>0 !)
+        Eigen::Vector3d  _theta;         // polar theta
+        Eigen::Vector3d  _z;             // polar z
 
-        Eigen::MatrixXd _phi;           // phi matrix (_nneigh x _ncolPhi)
-        Eigen::MatrixXd _indices;       // used pair (k,n) in phi(k,n) (_ncolPhi x 2)
+        Eigen::MatrixXcf _phi;           // phi matrix (_nneigh x _ncolPhi)
+        Eigen::MatrixXd  _indices;       // used pair (k,n) in phi(k,n) (_ncolPhi x 2)
 };

@@ -3,19 +3,24 @@ cmake_minimum_required(VERSION 3.0.0)
 project(wavejets)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
+find_package(OpenCV REQUIRED)
+
+# check opencv version
+if(${OpenCV_VERSION} VERSION_LESS 2.0.0)
+	message(FATAL_ERROR “OpenCV version is not compatible : ${OpenCV_VERSION}”)
+endif()
+
+
 add_executable(wavejets
-  src/operation/binomial.hpp
-	src/operation/factorial.hpp
-  src/operation/misc.hpp
-  src/wavejet.hpp
   src/wavejet.cpp
+  src/CloudDots.cpp
   src/main.cpp
 )
 
-###################
-# Compile options #
-###################
+# link library
+target_link_libraries(wavejets ${OpenCV_LIBS})
 
+# Compile options
 target_compile_features(wavejets PRIVATE cxx_std_17)
 
 if(MSVC)
