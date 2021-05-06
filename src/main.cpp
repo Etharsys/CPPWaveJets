@@ -40,7 +40,7 @@ int main(int argc, char** argv)
     auto cam = init_window();
 
     CloudDots cd;
-    Wavejet<ORDER> wj { cd.centered_p(), cd._dots, 30.};
+    Wavejet<ORDER> wj { cd.centered_p(), cd._dots, 100.};
 
     display(cam, cd, wj);
 
