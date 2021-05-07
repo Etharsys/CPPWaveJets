@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.cpp
+CloudDots.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.hpp
+
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.hpp
 config.hpp
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/config.hpp
@@ -29,46 +33,10 @@ Eigen/Dense
 -
 
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/config.hpp
-
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/main.cpp
-iostream
+random
 -
-wavejet.hpp
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
-CloudDots.hpp
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.hpp
-opencv2/viz/viz3d.hpp
+chrono
 -
-Eigen/Core
--
-
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.cpp
-wavejet.hpp
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
-
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
-cassert
--
-iostream
--
-math.h
--
-complex
--
-opencv2/core/core.hpp
--
-opencv2/viz/viz3d.hpp
--
-Eigen/Core
--
-Eigen/Dense
--
-Eigen/SVD
--
-Eigen/IterativeLinearSolvers
--
-config.hpp
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/config.hpp
 
 /usr/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp

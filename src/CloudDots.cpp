@@ -6,25 +6,6 @@ using namespace cv;
 using namespace viz;
 
 
-/* === RANDOM === */
-#include <random>
-#include <chrono>
-
-// select seed from time
-unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-
-// select a random generator engine
-default_random_engine generator(seed);
-
-// uniform real distribution (ici entre 1 et 6, sur des float)
-uniform_real_distribution<double> uniformRealDistribution(
-    -MAX_DOTS_CLOUD_RADIUS, MAX_DOTS_CLOUD_RADIUS);
-
-/* === */
-
-
-
-
 void CloudDots::generate_random_cloud()
 {
     make_vector_square();
@@ -86,18 +67,16 @@ void CloudDots::make_vector_square()
 
 Point3d CloudDots::random_origin()
 {
-    double x = uniformRealDistribution(generator);
-    double y = uniformRealDistribution(generator);
-    double z = uniformRealDistribution(generator);
-    return Point3d { x, y, z };
+    return Point3d { generateUniformDouble(), 
+                     generateUniformDouble(),
+                     generateUniformDouble() };
 }
 
 Vec3d CloudDots::random_3d_vector()
 {
-    double a = uniformRealDistribution(generator);
-    double b = uniformRealDistribution(generator);
-    double c = uniformRealDistribution(generator);
-    return Vec3d { a, b, c };
+    return Vec3d { generateUniformDouble(), 
+                   generateUniformDouble(), 
+                   generateUniformDouble() };
 }
 
 void CloudDots::create_all_random_points_on_plan()
@@ -110,8 +89,8 @@ void CloudDots::create_all_random_points_on_plan()
 
 Point3d CloudDots::create_random_point_on_plan()
 {
-    auto alpha = uniformRealDistribution(generator);
-    auto beta  = uniformRealDistribution(generator);
+    auto alpha = generateUniformDouble();
+    auto beta  = generateUniformDouble();
     double x = (alpha * _vecA[0] + beta * _vecB[0] + _origin.x);
     double y = (alpha * _vecA[1] + beta * _vecB[1] + _origin.y);
     double z = (alpha * _vecA[2] + beta * _vecB[2] + _origin.z);
@@ -123,8 +102,7 @@ void CloudDots::generate_random_noise()
     transform(_dots.begin(), _dots.end(), _dots.begin(), 
         [](const Point3d& p) 
         {
-            double z = uniformRealDistribution(generator) 
-                        * MAX_CLOUD_DOTS_NOISE;
+            double z = generateUniformDouble() * MAX_CLOUD_DOTS_NOISE;
             return Point3d { p.x, p.y, p.z + z}; 
         }
     );

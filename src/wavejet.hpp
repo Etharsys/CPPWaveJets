@@ -115,17 +115,17 @@ class Wavejet
 
         /**
          * @brief get the cartesian coordinates of neighbors
-         * @arg npv : the neighbors dots set principal vectors
+         * @arg neighbors_principal_vectors : the neighbors dots set principal vectors
          * @return an array of all points in cartesian coordinates : (matrix:_nneigh x 3)
          */
-        Eigen::MatrixXd neighbours_coords(const Eigen::Matrix3d& npv) // rename & const&
+        Eigen::MatrixXd neighbours_coords(const Eigen::Matrix3d& neighbors_principal_vectors) // rename & const&
         {
             Eigen::Matrix3d repp { _nneigh, 1 };
             for (u_int i = 0; i < _nneigh; ++i)
             {
                 repp.col(i) = _p; // _nneigh * _p (as colon)
             }
-            return (_neighbors - repp) * npv;
+            return (_neighbors - repp) * neighbors_principal_vectors;
         }
 
         /**
