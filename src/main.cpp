@@ -5,9 +5,6 @@
 
 #include <opencv2/viz/viz3d.hpp>
 #include <Eigen/Core>
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
 
 
 using namespace std;
@@ -35,8 +32,6 @@ int main(int argc, char** argv)
     {
         cout << "wrong args : " << argc << argv << endl;
     }
-    srand (time(NULL));
-
     auto cam = init_window();
 
     CloudDots cd;

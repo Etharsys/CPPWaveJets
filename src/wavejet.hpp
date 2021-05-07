@@ -19,12 +19,13 @@
 
 using Neighbors = std::array<cv::Point3d, MAX_CLOUD_POINTS>;
 
+
 template <unsigned int Order>
 class Wavejet
 {
     public :
-        Wavejet (cv::Point3d p, 
-                 Neighbors neighbors, 
+        Wavejet (const cv::Point3d& p, 
+                 const Neighbors& neighbors, 
                  double neighbor_radius)
             : _p { Eigen::Vector3d { p.x, p.y, p.z } }, 
               _neighbors { array_to_matrixXd(neighbors) }, 
@@ -66,7 +67,7 @@ class Wavejet
 
     private :
 
-        Eigen::MatrixXd array_to_matrixXd(Neighbors neighbors)
+        Eigen::MatrixXd array_to_matrixXd(const Neighbors& neighbors)
         {
             u_int i = 0;
             Eigen::MatrixXd mat { 3, MAX_CLOUD_POINTS };
@@ -117,7 +118,7 @@ class Wavejet
          * @arg npv : the neighbors dots set principal vectors
          * @return an array of all points in cartesian coordinates : (matrix:_nneigh x 3)
          */
-        Eigen::MatrixXd neighbours_coords(Eigen::Matrix3d npv)
+        Eigen::MatrixXd neighbours_coords(const Eigen::Matrix3d& npv) // rename & const&
         {
             Eigen::Matrix3d repp { _nneigh, 1 };
             for (u_int i = 0; i < _nneigh; ++i)
@@ -132,7 +133,7 @@ class Wavejet
          * by setting _radius, _theta and _z attributs
          * @arg ln : locneighbors matrix, the coordinates of neighbors in cartesian plan
          */
-        void switch_polar_coords(Eigen::MatrixXd ln)
+        void switch_polar_coords(const Eigen::MatrixXd& ln)
         {
             for (u_int i = 0; i < _nneigh; ++i) // revoir les < / <=
             {

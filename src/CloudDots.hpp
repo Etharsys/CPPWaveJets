@@ -1,20 +1,27 @@
 #pragma once
 
 #include "config.hpp"
+
 #include <array>
-#include <stdlib.h>
 #include <cassert>
+#include <iostream>
+#include <math.h>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/viz/viz3d.hpp>
 
+#include <Eigen/Dense>
+
+
 
 class CloudDots
 {
     public:
-        CloudDots (cv::Point3d origin, cv::Vec3d vecA, cv::Vec3d vecB)
+        CloudDots (const cv::Point3d& origin, 
+                   const cv::Vec3d& vecA, 
+                   const cv::Vec3d& vecB)
             : _origin { origin }, 
               _vecA   { vecA }, 
               _vecB   { vecB }
@@ -27,7 +34,7 @@ class CloudDots
                                    random_3d_vector(),
                                    random_3d_vector() }
         {
-            while (_vecA == _vecB)
+            while (_vecA == _vecB) // faux : -collinear
             {
                 _vecB = random_3d_vector();
             }
@@ -54,6 +61,12 @@ class CloudDots
 
 
     private:
+
+        /**
+         * @brief find an orthogonal vector of A in the plane vecA-vecB
+         * then normalize vectors A and B
+         */
+        void make_vector_square();
 
         /**
          * @brief generate a random 3D point for _origin
@@ -87,5 +100,6 @@ class CloudDots
         cv::Point3d _origin; 
         cv::Vec3d   _vecA;
         cv::Vec3d   _vecB;
+        cv::Vec3d   _colA;
 
 };

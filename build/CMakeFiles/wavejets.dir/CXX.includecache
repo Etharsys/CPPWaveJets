@@ -6,22 +6,16 @@
 
 #IncludeRegexTransform: 
 
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.cpp
-CloudDots.hpp
-/home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.hpp
-iostream
--
-math.h
--
-
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.hpp
 config.hpp
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/config.hpp
 array
 -
-stdlib.h
--
 cassert
+-
+iostream
+-
+math.h
 -
 opencv2/core/core.hpp
 -
@@ -30,6 +24,8 @@ opencv2/imgproc/imgproc.hpp
 opencv2/highgui/highgui.hpp
 -
 opencv2/viz/viz3d.hpp
+-
+Eigen/Dense
 -
 
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/config.hpp
@@ -45,12 +41,10 @@ opencv2/viz/viz3d.hpp
 -
 Eigen/Core
 -
-stdio.h
--
-time.h
--
-stdlib.h
--
+
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.cpp
+wavejet.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
 
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
 cassert
