@@ -16,16 +16,16 @@ void CloudDots::generate_random_cloud()
 void CloudDots::display(Viz3d& cam)
 {
     // out stream
-    /*
-    for (const auto& p : _dots)
+    
+    /*for (const auto& p : _dots)
     {
         cout << p << endl;
     }
     //cout << "ori : " << _origin << endl;
-    cout << "vecA : " << _vecA  << endl;
+    //cout << "vecA : " << _vecA  << endl;
     //cout << "vecB : " << _vecB << endl;
-    cout << "colA : " << _colA << endl;
-    */
+    //cout << "colA : " << _colA << endl;*/
+    
     
     // opencv
     cam.showWidget("dots", WCloud(_dots, Color::black()));

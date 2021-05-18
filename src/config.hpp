@@ -10,7 +10,7 @@ constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
 constexpr int MAX_DOTS_CLOUD_RADIUS = 10;
 
 // max points for cloud points
-constexpr unsigned int MAX_CLOUD_POINTS = 1000;
+constexpr unsigned int MAX_CLOUD_POINTS = 200;
 
 // wavejet order demo
 constexpr unsigned int ORDER = 2;

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <math.h>
 #include <complex>
+#include <typeinfo>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/viz/viz3d.hpp>
@@ -13,6 +14,7 @@
 #include <Eigen/Dense>
 #include <Eigen/SVD>
 #include <Eigen/IterativeLinearSolvers>
+#include <Eigen/LU>
 
 #include "config.hpp"
 
@@ -41,10 +43,14 @@ class Wavejet
         void compute_wavejets()
         {
             set_lines_cols();
-            neighbours_principal_vector();
+            auto svdV = neighbours_principal_vector();
 
-            //switch_polar_coords(neighbours_coords(svdV));
-            //compute_phi();
+            auto coords = neighbours_coords(svdV);
+            switch_polar_coords(coords);
+
+            compute_phi();
+            compute_a();
+            std::cout << _an << std::endl;
         }
 
         void display_svdV(cv::viz::Viz3d& cam)
@@ -70,9 +76,13 @@ class Wavejet
         Eigen::MatrixXd array_to_matrixXd(const Neighbors& neighbors)
         {
             u_int i = 0;
-            Eigen::MatrixXd mat { 3, MAX_CLOUD_POINTS };
+            Eigen::MatrixXd mat { 3, MAX_CLOUD_POINTS - 1 };
             for (const auto& p : neighbors)
             {
+                if (p.x == _p(0) && p.y == _p(1) && p.z == _p(2))
+                {
+                    continue;
+                }
                 mat(0, i) = p.x;
                 mat(1, i) = p.y;
                 mat(2, i) = p.z;
@@ -103,8 +113,8 @@ class Wavejet
                                         _neighbors.row(1).mean(),
                                         _neighbors.row(2).mean() };
             Eigen::Matrix3d c_matrix = 1./_nneigh * 
-                                (_neighbors * _neighbors.transpose()) -
-                                ( average_p *  average_p.transpose());
+                                (_neighbors * _neighbors.adjoint()) -
+                                ( average_p *  average_p.adjoint());
             Eigen::JacobiSVD<Eigen::MatrixXd> svd { c_matrix, Eigen::ComputeFullV };
             Eigen::Matrix3d v = svd.matrixV();
             _t1     = v.col(0);
@@ -118,14 +128,14 @@ class Wavejet
          * @arg neighbors_principal_vectors : the neighbors dots set principal vectors
          * @return an array of all points in cartesian coordinates : (matrix:_nneigh x 3)
          */
-        Eigen::MatrixXd neighbours_coords(const Eigen::Matrix3d& neighbors_principal_vectors) // rename & const&
+        Eigen::MatrixXd neighbours_coords(const Eigen::Matrix3d& neighbors_principal_vectors)
         {
-            Eigen::Matrix3d repp { _nneigh, 1 };
+            Eigen::MatrixXd repetition { 3, _nneigh };
             for (u_int i = 0; i < _nneigh; ++i)
             {
-                repp.col(i) = _p; // _nneigh * _p (as colon)
+                repetition.col(i) = _p; // _nneigh * _p (as colon)
             }
-            return (_neighbors - repp) * neighbors_principal_vectors;
+            return neighbors_principal_vectors * (_neighbors - repetition);
         }
 
         /**
@@ -133,14 +143,17 @@ class Wavejet
          * by setting _radius, _theta and _z attributs
          * @arg ln : locneighbors matrix, the coordinates of neighbors in cartesian plan
          */
-        void switch_polar_coords(const Eigen::MatrixXd& ln)
+        void switch_polar_coords(const Eigen::MatrixXd& locneighbors)
         {
-            for (u_int i = 0; i < _nneigh; ++i) // revoir les < / <=
+            _theta  = Eigen::VectorXd { _nneigh };
+            _radius = Eigen::VectorXd { _nneigh };
+            _z      = Eigen::VectorXd { _nneigh };
+            for (u_int i = 0; i < _nneigh; ++i)
             {
-                _radius(i) = sqrt( pow(ln(i,0), 2) + pow(ln(i,1), 2) );
-                _theta(i)  = atan2(ln(i,1), ln(i,0));
+                _radius(i) = sqrt( pow(locneighbors(0, i), 2) + pow(locneighbors(1, i), 2) );
+                _theta(i)  = atan2(locneighbors(1, i), locneighbors(0, i));
             }
-            _z = ln.col(3);
+            _z = locneighbors.row(2);
         }
 
         /**
@@ -149,34 +162,62 @@ class Wavejet
          */
         void compute_phi()
         {
-            /*Eigen::MatrixXd M       { _nneigh , _ncolPhi };
-            Eigen::MatrixXd indices { _ncolPhi, 2 };
-            unsigned int idx   = 1;
-            double norm_radius = _radius / _nr;
-            double norm_z      = _z      / _nr;
-            auto   w           = exp(pow(-norm_radius, 2) / 18);
+            Eigen::MatrixXcd M       { _nneigh , _ncolPhi };
+            Eigen::MatrixXd  indices { _ncolPhi, 2 };
+            unsigned int idx   = 0;
+            auto norm_radius = _radius / _nr;
+            _z = _z / _nr;
+            auto w = exp(- norm_radius.array().square() / 18); // 18 ?
             for (u_int k = 0; k <= Order; ++k) 
             {
-                auto rk = pow(norm_radius, k);
-                for (int n = -k; n <= k; n+=2)
+                auto rk = norm_radius.array().pow(k);
+                for (int n = -int(k); n <= int(k); n+=2) 
                 {
-                    const std::complex<double> i(0, 1);
-                    double d_n = 1. * n;
-                    for (int p = 0; p < _nneigh; ++p)
-                    {
-                        auto e = cos(d_n * _theta(p)) + i * sin(d_n * _theta(p));
-                        M(idx, p) = rk * e * w;
-                    }
-                    Eigen::Vector2d v{ k, n };
-                    indices.row(idx) = v;
+                    Eigen::VectorXd  n_thet = double(n) * _theta;
+                    Eigen::VectorXcd e { n_thet.size() };
+                    e.real() << n_thet.array().cos();
+                    e.imag() << n_thet.array().sin();
+
+                    M.col(idx) = rk.array() * e.array() * w.array();
+                    indices.row(idx) = Eigen::Vector2d { k, n };
+
                     idx++;
                 }
             }
-            Eigen::ConjugateGradient<Eigen::SparseMatrix<double>, Eigen::Upper> solver;
-            _phi = solver.compute(M).solve(_z * w);*/
+            Eigen::MatrixXcd b = _z.array() * w.array();
+            _phi = (M.adjoint() * M).inverse() * M.adjoint() * b;
+
+            //std::cout << M << std::endl   << std::endl;
+
+            //Eigen::FullPivLU<Eigen::MatrixXcd> lu_decomp(M);
+            //std::cout << "rank(M) = " << lu_decomp.rank() << std::endl << std::endl;
+
+            std::cout << "phi = " << _phi.adjoint() << std::endl << std::endl;
         }
-        
-        
+
+        /**
+         * @brief compute an() values
+         */
+        void compute_a()
+        {
+            u_int idx = 0;
+            _an = Eigen::MatrixXd::Zero(Order+1, 1);
+            for (u_int k = 0; k < Order; ++k)
+            {
+                for (int n = -int(k); n <= int(k); n+=2)
+                {
+                    if (n >= 0)
+                    {
+                        _an(n+1) += _phi(idx) / double(k+2);
+                    }
+                    idx++;
+                }
+            }
+            _an(1) = _an(1).real();
+            _an(2) = std::complex { _an(2).real(), std::abs(_an(2).imag()) };
+        }
+
+
 
         unsigned int     _nneigh;        // number of neighbors
         unsigned int     _ncolPhi;       // number of Phi matrix columns
@@ -189,10 +230,12 @@ class Wavejet
         Eigen::Vector3d  _t2;            // neighbors average width vector
         Eigen::Vector3d  _normal;        // neighbors average normal
 
-        Eigen::Vector3d  _radius;        // polar r (>0 !)
-        Eigen::Vector3d  _theta;         // polar theta
-        Eigen::Vector3d  _z;             // polar z
+        Eigen::VectorXd  _radius;        // polar r (>0 !)
+        Eigen::VectorXd  _theta;         // polar theta
+        Eigen::VectorXd  _z;             // polar z
 
-        Eigen::MatrixXcf _phi;           // phi matrix (_nneigh x _ncolPhi)
+        Eigen::VectorXcd _phi;           // phi in complex
         Eigen::MatrixXd  _indices;       // used pair (k,n) in phi(k,n) (_ncolPhi x 2)
+
+        Eigen::MatrixXcd _an;            // an values
 };
