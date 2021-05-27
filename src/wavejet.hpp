@@ -16,10 +16,11 @@
 #include <Eigen/IterativeLinearSolvers>
 #include <Eigen/LU>
 
+#include "wavejetDisplay.hpp"
 #include "config.hpp"
 
 
-using Neighbors = std::array<cv::Point3d, MAX_CLOUD_POINTS>;
+using Neighbors = std::array<cv::Point3d, MAX_CYLINDER_CLOUD>;
 
 
 template <unsigned int Order>
@@ -34,6 +35,7 @@ class Wavejet
               _nr { neighbor_radius }
         {
             assert(neighbor_radius >= 0);
+            std::cout << _p << std::endl;
             compute_wavejets();
         }
 
@@ -65,6 +67,13 @@ class Wavejet
             cam.showWidget("normal", cv::viz::WLine(ori, nm + ori, cv::viz::Color::red()));
         }
 
+        void display(cv::viz::Viz3d& cam)
+        {
+            WavejetDisplay wd { _phi, Order };
+            wd.compute_display();
+            wd.display(cam);
+        }
+
         std::ostream& operator<< (std::ostream& stream)
         {
             return stream << Order << "-Wavejets : " << std::endl << _phi;
@@ -76,7 +85,7 @@ class Wavejet
         Eigen::MatrixXd array_to_matrixXd(const Neighbors& neighbors)
         {
             u_int i = 0;
-            Eigen::MatrixXd mat { 3, MAX_CLOUD_POINTS - 1 };
+            Eigen::MatrixXd mat { 3, MAX_CYLINDER_CLOUD - 1 };
             for (const auto& p : neighbors)
             {
                 if (p.x == _p(0) && p.y == _p(1) && p.z == _p(2))
@@ -97,7 +106,7 @@ class Wavejet
         void set_lines_cols()
         {
             _nneigh  = _neighbors.row(0).size();
-            _ncolPhi = (pow(Order, 2) / 2) + (3 * Order / 2) + 1;
+            _ncolPhi = (pow(Order, 2) / 2.) + (3. * Order / 2) + 1;
         }
 
         /**
@@ -206,15 +215,15 @@ class Wavejet
             {
                 for (int n = -int(k); n <= int(k); n+=2)
                 {
-                    if (n >= 0)
+                    if (n >= -1)
                     {
                         _an(n+1) += _phi(idx) / double(k+2);
                     }
                     idx++;
                 }
             }
-            _an(1) = _an(1).real();
-            _an(2) = std::complex { _an(2).real(), std::abs(_an(2).imag()) };
+            _an(0) = _an(0).real();
+            _an(1) = std::complex { _an(1).real(), std::abs(_an(1).imag()) };
         }
 
 

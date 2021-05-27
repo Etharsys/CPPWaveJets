@@ -153,6 +153,33 @@ src/CloudDots.cpp.s:
 	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CloudDots.cpp.s
 .PHONY : src/CloudDots.cpp.s
 
+src/CylinderCloud.o: src/CylinderCloud.cpp.o
+
+.PHONY : src/CylinderCloud.o
+
+# target to build an object file
+src/CylinderCloud.cpp.o:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o
+.PHONY : src/CylinderCloud.cpp.o
+
+src/CylinderCloud.i: src/CylinderCloud.cpp.i
+
+.PHONY : src/CylinderCloud.i
+
+# target to preprocess a source file
+src/CylinderCloud.cpp.i:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.i
+.PHONY : src/CylinderCloud.cpp.i
+
+src/CylinderCloud.s: src/CylinderCloud.cpp.s
+
+.PHONY : src/CylinderCloud.s
+
+# target to generate assembly for a file
+src/CylinderCloud.cpp.s:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.s
+.PHONY : src/CylinderCloud.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -207,6 +234,33 @@ src/wavejet.cpp.s:
 	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejet.cpp.s
 .PHONY : src/wavejet.cpp.s
 
+src/wavejetDisplay.o: src/wavejetDisplay.cpp.o
+
+.PHONY : src/wavejetDisplay.o
+
+# target to build an object file
+src/wavejetDisplay.cpp.o:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o
+.PHONY : src/wavejetDisplay.cpp.o
+
+src/wavejetDisplay.i: src/wavejetDisplay.cpp.i
+
+.PHONY : src/wavejetDisplay.i
+
+# target to preprocess a source file
+src/wavejetDisplay.cpp.i:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.i
+.PHONY : src/wavejetDisplay.cpp.i
+
+src/wavejetDisplay.s: src/wavejetDisplay.cpp.s
+
+.PHONY : src/wavejetDisplay.s
+
+# target to generate assembly for a file
+src/wavejetDisplay.cpp.s:
+	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.s
+.PHONY : src/wavejetDisplay.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,12 +273,18 @@ help:
 	@echo "... src/CloudDots.o"
 	@echo "... src/CloudDots.i"
 	@echo "... src/CloudDots.s"
+	@echo "... src/CylinderCloud.o"
+	@echo "... src/CylinderCloud.i"
+	@echo "... src/CylinderCloud.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
 	@echo "... src/wavejet.o"
 	@echo "... src/wavejet.i"
 	@echo "... src/wavejet.s"
+	@echo "... src/wavejetDisplay.o"
+	@echo "... src/wavejetDisplay.i"
+	@echo "... src/wavejetDisplay.s"
 .PHONY : help
 
 

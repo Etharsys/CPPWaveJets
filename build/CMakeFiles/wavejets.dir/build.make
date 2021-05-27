@@ -86,9 +86,35 @@ CMakeFiles/wavejets.dir/src/CloudDots.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wavejets.dir/src/CloudDots.cpp.s"
 	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.cpp -o CMakeFiles/wavejets.dir/src/CloudDots.cpp.s
 
+CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o: CMakeFiles/wavejets.dir/flags.make
+CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o: ../src/CylinderCloud.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o"
+	/usr/bin/g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CylinderCloud.cpp
+
+CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.i"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CylinderCloud.cpp > CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.i
+
+CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.s"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CylinderCloud.cpp -o CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.s
+
+CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o: CMakeFiles/wavejets.dir/flags.make
+CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o: ../src/wavejetDisplay.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o"
+	/usr/bin/g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejetDisplay.cpp
+
+CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.i"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejetDisplay.cpp > CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.i
+
+CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.s"
+	/usr/bin/g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejetDisplay.cpp -o CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.s
+
 CMakeFiles/wavejets.dir/src/main.cpp.o: CMakeFiles/wavejets.dir/flags.make
 CMakeFiles/wavejets.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/wavejets.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/wavejets.dir/src/main.cpp.o"
 	/usr/bin/g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/wavejets.dir/src/main.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/main.cpp
 
 CMakeFiles/wavejets.dir/src/main.cpp.i: cmake_force
@@ -103,6 +129,8 @@ CMakeFiles/wavejets.dir/src/main.cpp.s: cmake_force
 wavejets_OBJECTS = \
 "CMakeFiles/wavejets.dir/src/wavejet.cpp.o" \
 "CMakeFiles/wavejets.dir/src/CloudDots.cpp.o" \
+"CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o" \
+"CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o" \
 "CMakeFiles/wavejets.dir/src/main.cpp.o"
 
 # External object files for target wavejets
@@ -110,6 +138,8 @@ wavejets_EXTERNAL_OBJECTS =
 
 wavejets: CMakeFiles/wavejets.dir/src/wavejet.cpp.o
 wavejets: CMakeFiles/wavejets.dir/src/CloudDots.cpp.o
+wavejets: CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o
+wavejets: CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o
 wavejets: CMakeFiles/wavejets.dir/src/main.cpp.o
 wavejets: CMakeFiles/wavejets.dir/build.make
 wavejets: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0
@@ -161,7 +191,7 @@ wavejets: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.2.0
 wavejets: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
 wavejets: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
 wavejets: CMakeFiles/wavejets.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable wavejets"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable wavejets"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/wavejets.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

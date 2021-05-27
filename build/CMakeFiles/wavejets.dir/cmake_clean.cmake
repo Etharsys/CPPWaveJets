@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/wavejets.dir/src/CloudDots.cpp.o"
+  "CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o"
   "CMakeFiles/wavejets.dir/src/main.cpp.o"
   "CMakeFiles/wavejets.dir/src/wavejet.cpp.o"
+  "CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o"
   "wavejets"
   "wavejets.pdb"
 )

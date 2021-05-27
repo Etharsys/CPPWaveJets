@@ -14,6 +14,8 @@ endif()
 add_executable(wavejets
   src/wavejet.cpp
   src/CloudDots.cpp
+  src/CylinderCloud.cpp
+  src/wavejetDisplay.cpp
   src/main.cpp
 )
 
