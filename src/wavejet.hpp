@@ -18,6 +18,7 @@
 
 #include "wavejetDisplay.hpp"
 #include "config.hpp"
+#include "phi.hpp"
 
 
 using Neighbors = std::array<cv::Point3d, MAX_CYLINDER_CLOUD>;
@@ -35,7 +36,7 @@ class Wavejet
               _nr { neighbor_radius }
         {
             assert(neighbor_radius >= 0);
-            std::cout << _p << std::endl;
+            //std::cout << _p << std::endl;
             compute_wavejets();
         }
 
@@ -52,7 +53,7 @@ class Wavejet
 
             compute_phi();
             compute_a();
-            std::cout << _an << std::endl;
+            //std::cout << _an << std::endl;
         }
 
         void display_svdV(cv::viz::Viz3d& cam)
@@ -69,7 +70,7 @@ class Wavejet
 
         void display(cv::viz::Viz3d& cam)
         {
-            WavejetDisplay wd { _phi, Order };
+            WavejetDisplay<Order> wd { _phi };
             wd.compute_display();
             wd.display(cam);
         }
@@ -194,14 +195,30 @@ class Wavejet
                 }
             }
             Eigen::MatrixXcd b = _z.array() * w.array();
-            _phi = (M.adjoint() * M).inverse() * M.adjoint() * b;
-
-            //std::cout << M << std::endl   << std::endl;
-
+            Eigen::VectorXcd phi = (M.adjoint() * M).inverse() * M.adjoint() * b;
             //Eigen::FullPivLU<Eigen::MatrixXcd> lu_decomp(M);
             //std::cout << "rank(M) = " << lu_decomp.rank() << std::endl << std::endl;
+            //std::cout << "idx = " << indices << std::endl;
+            
+            idx = 0;
+            for (u_int k = 0; k <= Order; ++k) 
+            {
+                for (int n = -int(k); n <= int(k); n+=2) 
+                {
+                    _phi.set(k, n, phi(idx));
+                    idx++;
+                }
+            }
 
-            std::cout << "phi = " << _phi.adjoint() << std::endl << std::endl;
+            //std::cout << "phi = " << phi << std::endl << std::endl;
+            //std::cout << "phi = " << phi.adjoint() << std::endl << std::endl;
+            /*for (u_int k = 0; k <= Order; ++k) 
+            {
+                for (int n = -int(k); n <= int(k); n+=2) 
+                {
+                    std::cout << "phi("<< k << "," << n << ") = " << _phi.at(k,n) << std::endl;
+                }
+            }*/
         }
 
         /**
@@ -217,7 +234,7 @@ class Wavejet
                 {
                     if (n >= -1)
                     {
-                        _an(n+1) += _phi(idx) / double(k+2);
+                        _an(n+1) += _phi.at(k, n) / double(k+2);
                     }
                     idx++;
                 }
@@ -243,7 +260,8 @@ class Wavejet
         Eigen::VectorXd  _theta;         // polar theta
         Eigen::VectorXd  _z;             // polar z
 
-        Eigen::VectorXcd _phi;           // phi in complex
+        //Eigen::VectorXcd _phi;           // phi in complex
+        Phi<Order>       _phi;
         Eigen::MatrixXd  _indices;       // used pair (k,n) in phi(k,n) (_ncolPhi x 2)
 
         Eigen::MatrixXcd _an;            // an values

@@ -19,13 +19,13 @@
 class CylinderCloud
 {
     public:
-        CylinderCloud (const cv::Point3d& origin)
-            : _origin { origin }
+        CylinderCloud (const cv::Point3d& origin, const cv::Vec3d& vec)
+            : _origin { origin }, _vec { vec }
         {
             generate_random_cloud();
         }
 
-        CylinderCloud () : CylinderCloud { random_origin() }
+        CylinderCloud () : CylinderCloud { random_origin(), random_3d_vector() }
         { }
 
         /**
@@ -58,6 +58,12 @@ class CylinderCloud
         cv::Point3d random_origin();
 
         /**
+         * @brief generate a random 3D vector for _vecA or _vecB
+         * @return an Opencv 3D vector
+         */
+        cv::Vec3d random_3d_vector();
+
+        /**
          * @brief generate a 3D random point wrt the plan
          * @return an Opencv 3D point
          */
@@ -79,8 +85,12 @@ class CylinderCloud
          */
         void generate_random_noise();
 
+        void apply_rotation();
+
+
 
         cv::Point3d _origin;
+        cv::Vec3d   _vec;
 
         double _height = generateUniformDouble(10, 30);
 

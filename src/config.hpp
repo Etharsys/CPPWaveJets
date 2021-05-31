@@ -36,6 +36,6 @@ inline double generateUniformDouble()
     return generateUniformDouble(-MAX_DOTS_CLOUD_RADIUS, MAX_DOTS_CLOUD_RADIUS);
 }
 
-constexpr unsigned int ANGLE_DIVISION  = 16;
-constexpr unsigned int RADIUS_DIVISION = 3;
+constexpr unsigned int ANGLE_DIVISION  = 64;
+constexpr unsigned int RADIUS_DIVISION = 12;
 constexpr unsigned int WAVEJET_DISPLAY_RADIUS = 3;

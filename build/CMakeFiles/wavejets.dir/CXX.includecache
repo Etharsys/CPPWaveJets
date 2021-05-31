@@ -70,6 +70,20 @@ opencv2/viz/viz3d.hpp
 Eigen/Core
 -
 
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/phi.hpp
+complex
+-
+vector
+-
+array
+-
+Eigen/Core
+-
+
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.cpp
+wavejet.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
+
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.hpp
 cassert
 -
@@ -99,6 +113,12 @@ wavejetDisplay.hpp
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejetDisplay.hpp
 config.hpp
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/config.hpp
+phi.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/phi.hpp
+
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejetDisplay.cpp
+wavejetDisplay.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejetDisplay.hpp
 
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejetDisplay.hpp
 Eigen/Core
@@ -117,6 +137,8 @@ opencv2/viz/viz3d.hpp
 -
 config.hpp
 /home/maxime/Documents/C++/Stage/CPPWaveJets/src/config.hpp
+phi.hpp
+/home/maxime/Documents/C++/Stage/CPPWaveJets/src/phi.hpp
 
 /usr/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp
