@@ -23,9 +23,6 @@ SUFFIXES =
 .SUFFIXES: .hpux_make_needs_suffix_list
 
 
-# Produce verbose output by default.
-VERBOSE = 1
-
 # Suppress display of executed commands.
 $(VERBOSE).SILENT:
 
@@ -114,152 +111,56 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named wavejets
+# Target rules for targets named Wavejet
 
 # Build rule for target.
-wavejets: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 wavejets
-.PHONY : wavejets
+Wavejet: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Wavejet
+.PHONY : Wavejet
 
 # fast build rule for target.
-wavejets/fast:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/build
-.PHONY : wavejets/fast
+Wavejet/fast:
+	$(MAKE) -f INTERFACE/CMakeFiles/Wavejet.dir/build.make INTERFACE/CMakeFiles/Wavejet.dir/build
+.PHONY : Wavejet/fast
 
-src/CloudDots.o: src/CloudDots.cpp.o
+#=============================================================================
+# Target rules for targets named Plan
 
-.PHONY : src/CloudDots.o
+# Build rule for target.
+Plan: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Plan
+.PHONY : Plan
 
-# target to build an object file
-src/CloudDots.cpp.o:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CloudDots.cpp.o
-.PHONY : src/CloudDots.cpp.o
+# fast build rule for target.
+Plan/fast:
+	$(MAKE) -f tests/CMakeFiles/Plan.dir/build.make tests/CMakeFiles/Plan.dir/build
+.PHONY : Plan/fast
 
-src/CloudDots.i: src/CloudDots.cpp.i
+#=============================================================================
+# Target rules for targets named Kwavejet
 
-.PHONY : src/CloudDots.i
+# Build rule for target.
+Kwavejet: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Kwavejet
+.PHONY : Kwavejet
 
-# target to preprocess a source file
-src/CloudDots.cpp.i:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CloudDots.cpp.i
-.PHONY : src/CloudDots.cpp.i
+# fast build rule for target.
+Kwavejet/fast:
+	$(MAKE) -f tests/CMakeFiles/Kwavejet.dir/build.make tests/CMakeFiles/Kwavejet.dir/build
+.PHONY : Kwavejet/fast
 
-src/CloudDots.s: src/CloudDots.cpp.s
+#=============================================================================
+# Target rules for targets named Cylinder
 
-.PHONY : src/CloudDots.s
+# Build rule for target.
+Cylinder: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Cylinder
+.PHONY : Cylinder
 
-# target to generate assembly for a file
-src/CloudDots.cpp.s:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CloudDots.cpp.s
-.PHONY : src/CloudDots.cpp.s
-
-src/CylinderCloud.o: src/CylinderCloud.cpp.o
-
-.PHONY : src/CylinderCloud.o
-
-# target to build an object file
-src/CylinderCloud.cpp.o:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o
-.PHONY : src/CylinderCloud.cpp.o
-
-src/CylinderCloud.i: src/CylinderCloud.cpp.i
-
-.PHONY : src/CylinderCloud.i
-
-# target to preprocess a source file
-src/CylinderCloud.cpp.i:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.i
-.PHONY : src/CylinderCloud.cpp.i
-
-src/CylinderCloud.s: src/CylinderCloud.cpp.s
-
-.PHONY : src/CylinderCloud.s
-
-# target to generate assembly for a file
-src/CylinderCloud.cpp.s:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.s
-.PHONY : src/CylinderCloud.cpp.s
-
-src/main.o: src/main.cpp.o
-
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
-
-src/wavejet.o: src/wavejet.cpp.o
-
-.PHONY : src/wavejet.o
-
-# target to build an object file
-src/wavejet.cpp.o:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejet.cpp.o
-.PHONY : src/wavejet.cpp.o
-
-src/wavejet.i: src/wavejet.cpp.i
-
-.PHONY : src/wavejet.i
-
-# target to preprocess a source file
-src/wavejet.cpp.i:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejet.cpp.i
-.PHONY : src/wavejet.cpp.i
-
-src/wavejet.s: src/wavejet.cpp.s
-
-.PHONY : src/wavejet.s
-
-# target to generate assembly for a file
-src/wavejet.cpp.s:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejet.cpp.s
-.PHONY : src/wavejet.cpp.s
-
-src/wavejetDisplay.o: src/wavejetDisplay.cpp.o
-
-.PHONY : src/wavejetDisplay.o
-
-# target to build an object file
-src/wavejetDisplay.cpp.o:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o
-.PHONY : src/wavejetDisplay.cpp.o
-
-src/wavejetDisplay.i: src/wavejetDisplay.cpp.i
-
-.PHONY : src/wavejetDisplay.i
-
-# target to preprocess a source file
-src/wavejetDisplay.cpp.i:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.i
-.PHONY : src/wavejetDisplay.cpp.i
-
-src/wavejetDisplay.s: src/wavejetDisplay.cpp.s
-
-.PHONY : src/wavejetDisplay.s
-
-# target to generate assembly for a file
-src/wavejetDisplay.cpp.s:
-	$(MAKE) -f CMakeFiles/wavejets.dir/build.make CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.s
-.PHONY : src/wavejetDisplay.cpp.s
+# fast build rule for target.
+Cylinder/fast:
+	$(MAKE) -f tests/CMakeFiles/Cylinder.dir/build.make tests/CMakeFiles/Cylinder.dir/build
+.PHONY : Cylinder/fast
 
 # Help Target
 help:
@@ -269,22 +170,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... wavejets"
-	@echo "... src/CloudDots.o"
-	@echo "... src/CloudDots.i"
-	@echo "... src/CloudDots.s"
-	@echo "... src/CylinderCloud.o"
-	@echo "... src/CylinderCloud.i"
-	@echo "... src/CylinderCloud.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
-	@echo "... src/wavejet.o"
-	@echo "... src/wavejet.i"
-	@echo "... src/wavejet.s"
-	@echo "... src/wavejetDisplay.o"
-	@echo "... src/wavejetDisplay.i"
-	@echo "... src/wavejetDisplay.s"
+	@echo "... Wavejet"
+	@echo "... Plan"
+	@echo "... Kwavejet"
+	@echo "... Cylinder"
 .PHONY : help
 
 

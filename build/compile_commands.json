@@ -1,27 +1,42 @@
 [
 {
-  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build",
-  "command": "/usr/bin/g++-9   -isystem /usr/include/opencv4  -g   -Wall -Wextra -Werror -Wshadow -std=gnu++17 -o CMakeFiles/wavejets.dir/src/wavejet.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.cpp",
-  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejet.cpp"
+  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build/INTERFACE",
+  "command": "/usr/bin/g++-9   -I/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/include -isystem /usr/include/opencv4  -g   -Wall -Wextra -Werror -std=gnu++17 -o CMakeFiles/Wavejet.dir/src/phi.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/src/phi.cpp",
+  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/src/phi.cpp"
 },
 {
-  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build",
-  "command": "/usr/bin/g++-9   -isystem /usr/include/opencv4  -g   -Wall -Wextra -Werror -Wshadow -std=gnu++17 -o CMakeFiles/wavejets.dir/src/CloudDots.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.cpp",
-  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/src/CloudDots.cpp"
+  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build/INTERFACE",
+  "command": "/usr/bin/g++-9   -I/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/include -isystem /usr/include/opencv4  -g   -Wall -Wextra -Werror -std=gnu++17 -o CMakeFiles/Wavejet.dir/src/wavejet.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/src/wavejet.cpp",
+  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/src/wavejet.cpp"
 },
 {
-  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build",
-  "command": "/usr/bin/g++-9   -isystem /usr/include/opencv4  -g   -Wall -Wextra -Werror -Wshadow -std=gnu++17 -o CMakeFiles/wavejets.dir/src/CylinderCloud.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/CylinderCloud.cpp",
-  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/src/CylinderCloud.cpp"
+  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build/INTERFACE",
+  "command": "/usr/bin/g++-9   -I/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/include -isystem /usr/include/opencv4  -g   -Wall -Wextra -Werror -std=gnu++17 -o CMakeFiles/Wavejet.dir/src/wavejetDisplay.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/src/wavejetDisplay.cpp",
+  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/src/wavejetDisplay.cpp"
 },
 {
-  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build",
-  "command": "/usr/bin/g++-9   -isystem /usr/include/opencv4  -g   -Wall -Wextra -Werror -Wshadow -std=gnu++17 -o CMakeFiles/wavejets.dir/src/wavejetDisplay.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejetDisplay.cpp",
-  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/src/wavejetDisplay.cpp"
+  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build/tests",
+  "command": "/usr/bin/g++-9   -I/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/include -isystem /usr/include/opencv4  -g   -Wall -O2 -Wextra -Werror -std=gnu++17 -o CMakeFiles/Plan.dir/src/Plan/CloudDots.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Plan/CloudDots.cpp",
+  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Plan/CloudDots.cpp"
 },
 {
-  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build",
-  "command": "/usr/bin/g++-9   -isystem /usr/include/opencv4  -g   -Wall -Wextra -Werror -Wshadow -std=gnu++17 -o CMakeFiles/wavejets.dir/src/main.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/src/main.cpp",
-  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/src/main.cpp"
+  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build/tests",
+  "command": "/usr/bin/g++-9   -I/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/include -isystem /usr/include/opencv4  -g   -Wall -O2 -Wextra -Werror -std=gnu++17 -o CMakeFiles/Plan.dir/src/Plan/main.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Plan/main.cpp",
+  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Plan/main.cpp"
+},
+{
+  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build/tests",
+  "command": "/usr/bin/g++-9   -I/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/include -isystem /usr/include/opencv4  -g   -Wall -O2 -Wextra -Werror -std=gnu++17 -o CMakeFiles/Kwavejet.dir/src/Kwavejet/main.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Kwavejet/main.cpp",
+  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Kwavejet/main.cpp"
+},
+{
+  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build/tests",
+  "command": "/usr/bin/g++-9   -I/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/include -isystem /usr/include/opencv4  -g   -Wall -O2 -Wextra -Werror -std=gnu++17 -o CMakeFiles/Cylinder.dir/src/Cylinder/CylinderCloud.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Cylinder/CylinderCloud.cpp",
+  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Cylinder/CylinderCloud.cpp"
+},
+{
+  "directory": "/home/maxime/Documents/C++/Stage/CPPWaveJets/build/tests",
+  "command": "/usr/bin/g++-9   -I/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet/include -isystem /usr/include/opencv4  -g   -Wall -O2 -Wextra -Werror -std=gnu++17 -o CMakeFiles/Cylinder.dir/src/Cylinder/main.cpp.o -c /home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Cylinder/main.cpp",
+  "file": "/home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Cylinder/main.cpp"
 }
 ]

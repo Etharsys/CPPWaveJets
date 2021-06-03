@@ -144,7 +144,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=wavejets
+CMAKE_PROJECT_NAME:STATIC=WavejetProject
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -212,10 +212,46 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 OpenCV_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/opencv4
 
 //Value Computed by CMake
-wavejets_BINARY_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/build
+Project_BINARY_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/build
 
 //Value Computed by CMake
-wavejets_SOURCE_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets
+Project_SOURCE_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets
+
+//Path to a library.
+Wavejet:FILEPATH=Wavejet-NOTFOUND
+
+//Value Computed by CMake
+WavejetProject_BINARY_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/build
+
+//Value Computed by CMake
+WavejetProject_SOURCE_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets
+
+//Value Computed by CMake
+Wavejet_BINARY_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/INTERFACE
+
+//Value Computed by CMake
+Wavejet_SOURCE_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/wavejet
+
+//Value Computed by CMake
+myCmakeTest_BINARY_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/build
+
+//Value Computed by CMake
+myCmakeTest_SOURCE_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets
+
+//Value Computed by CMake
+samples_BINARY_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/tests
+
+//Value Computed by CMake
+samples_SOURCE_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/tests
+
+//Path to a library.
+wave_lib:FILEPATH=wave_lib-NOTFOUND
+
+//Value Computed by CMake
+wavejets_BINARY_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/build/tests
+
+//Value Computed by CMake
+wavejets_SOURCE_DIR:STATIC=/home/maxime/Documents/C++/Stage/CPPWaveJets/tests
 
 
 ########################
@@ -322,7 +358,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

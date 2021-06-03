@@ -1,32 +1,22 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.13)
 
-project(wavejets)
-set(CMAKE_VERBOSE_MAKEFILE ON)
-
+# test opencv exist
 find_package(OpenCV REQUIRED)
-
 # check opencv version
 if(${OpenCV_VERSION} VERSION_LESS 2.0.0)
 	message(FATAL_ERROR “OpenCV version is not compatible : ${OpenCV_VERSION}”)
 endif()
+message("opencv is up to date and ready to link")
 
 
-add_executable(wavejets
-  src/wavejet.cpp
-  src/CloudDots.cpp
-  src/CylinderCloud.cpp
-  src/wavejetDisplay.cpp
-  src/main.cpp
-)
+# give a name to the project
+project(WavejetProject)
 
-# link library
-target_link_libraries(wavejets ${OpenCV_LIBS})
+# add myLib
+message(STATUS "wavejet lib cmake part ..." )
+add_subdirectory(wavejet INTERFACE)
+include_directories(${CMAKE_SOURCE_DIR}/wavejet/include)
 
-# Compile options
-target_compile_features(wavejets PRIVATE cxx_std_17)
-
-if(MSVC)
-  target_compile_options(wavejets PRIVATE /W4 /WX)
-else()
-  target_compile_options(wavejets PRIVATE -Wall -Wextra -Werror -Wshadow)
-endif()
+# add myCode
+message(STATUS "wavejet tests cmake part ..." )
+add_subdirectory(tests)

@@ -1,0 +1,77 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "samples",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Cylinder::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Cylinder-Debug-f4f1e25d0cb5451736fa.json",
+					"name" : "Cylinder",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Kwavejet::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Kwavejet-Debug-7ac92ee222ca8dad8863.json",
+					"name" : "Kwavejet",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Plan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Plan-Debug-f9b04d49997257cc8b8b.json",
+					"name" : "Plan",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/maxime/Documents/C++/Stage/CPPWaveJets/tests/build",
+		"source" : "/home/maxime/Documents/C++/Stage/CPPWaveJets/tests"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}
