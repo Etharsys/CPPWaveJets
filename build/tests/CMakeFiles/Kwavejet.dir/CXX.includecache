@@ -41,7 +41,15 @@ iostream
 -
 opencv2/viz/viz3d.hpp
 -
+opencv2/imgcodecs.hpp
+-
 complex
+-
+vector
+-
+filesystem
+-
+math.h
 -
 phi.hpp
 /home/maxime/Documents/C++/Stage/CPPWaveJets/tests/src/Kwavejet/phi.hpp

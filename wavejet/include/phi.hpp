@@ -15,14 +15,19 @@ class Phi
             : _order { order }
         { }
 
+
         std::complex<double> at (u_int k, int n);
 
         void set (u_int k, int n, const std::complex<double>& val);
+
+        void wiseset (u_int k, int n, const std::complex<double>& val);
 
         /**
          * display the phi container on terminal
          */
         void prompt_display();
+
+        void of_zeros();
 
 
     private :
