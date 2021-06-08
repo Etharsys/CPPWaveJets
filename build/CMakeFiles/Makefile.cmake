@@ -59,4 +59,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "tests/CMakeFiles/Plan.dir/DependInfo.cmake"
   "tests/CMakeFiles/Kwavejet.dir/DependInfo.cmake"
   "tests/CMakeFiles/Cylinder.dir/DependInfo.cmake"
+  "tests/CMakeFiles/AppWavejet.dir/DependInfo.cmake"
   )

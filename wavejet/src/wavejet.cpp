@@ -29,6 +29,9 @@ void Wavejet::display_svdV(cv::viz::Viz3d& cam)
     cv::Point3d t2  { _t2(0) * 10, _t2(1) * 10, _t2(2) * 10};
     cv::Point3d nm  { _normal(0) * 10, _normal(1) * 10, _normal(2) * 10};
 
+    cout << "t1 : " << t1 << endl;
+    cout << "t2 : " << t2 << endl;
+
     cam.showWidget("origin", WCloud(vector {ori} , Color::green()));
     cam.showWidget("t1"    , WLine (ori, t1 + ori, Color::blue ()));
     cam.showWidget("t2"    , WLine (ori, t2 + ori, Color::blue ()));

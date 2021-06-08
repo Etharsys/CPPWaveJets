@@ -162,6 +162,19 @@ Cylinder/fast:
 	$(MAKE) -f tests/CMakeFiles/Cylinder.dir/build.make tests/CMakeFiles/Cylinder.dir/build
 .PHONY : Cylinder/fast
 
+#=============================================================================
+# Target rules for targets named AppWavejet
+
+# Build rule for target.
+AppWavejet: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 AppWavejet
+.PHONY : AppWavejet
+
+# fast build rule for target.
+AppWavejet/fast:
+	$(MAKE) -f tests/CMakeFiles/AppWavejet.dir/build.make tests/CMakeFiles/AppWavejet.dir/build
+.PHONY : AppWavejet/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -174,6 +187,7 @@ help:
 	@echo "... Plan"
 	@echo "... Kwavejet"
 	@echo "... Cylinder"
+	@echo "... AppWavejet"
 .PHONY : help
 
 

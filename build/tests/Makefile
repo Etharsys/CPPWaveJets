@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/maxime/Documents/C++/Stage/CPPWaveJets/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -154,6 +154,48 @@ Cylinder: tests/CMakeFiles/Cylinder.dir/rule
 Cylinder/fast:
 	cd /home/maxime/Documents/C++/Stage/CPPWaveJets/build && $(MAKE) -f tests/CMakeFiles/Cylinder.dir/build.make tests/CMakeFiles/Cylinder.dir/build
 .PHONY : Cylinder/fast
+
+# Convenience name for target.
+tests/CMakeFiles/AppWavejet.dir/rule:
+	cd /home/maxime/Documents/C++/Stage/CPPWaveJets/build && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/AppWavejet.dir/rule
+.PHONY : tests/CMakeFiles/AppWavejet.dir/rule
+
+# Convenience name for target.
+AppWavejet: tests/CMakeFiles/AppWavejet.dir/rule
+
+.PHONY : AppWavejet
+
+# fast build rule for target.
+AppWavejet/fast:
+	cd /home/maxime/Documents/C++/Stage/CPPWaveJets/build && $(MAKE) -f tests/CMakeFiles/AppWavejet.dir/build.make tests/CMakeFiles/AppWavejet.dir/build
+.PHONY : AppWavejet/fast
+
+src/AppWavejet/main.o: src/AppWavejet/main.cpp.o
+
+.PHONY : src/AppWavejet/main.o
+
+# target to build an object file
+src/AppWavejet/main.cpp.o:
+	cd /home/maxime/Documents/C++/Stage/CPPWaveJets/build && $(MAKE) -f tests/CMakeFiles/AppWavejet.dir/build.make tests/CMakeFiles/AppWavejet.dir/src/AppWavejet/main.cpp.o
+.PHONY : src/AppWavejet/main.cpp.o
+
+src/AppWavejet/main.i: src/AppWavejet/main.cpp.i
+
+.PHONY : src/AppWavejet/main.i
+
+# target to preprocess a source file
+src/AppWavejet/main.cpp.i:
+	cd /home/maxime/Documents/C++/Stage/CPPWaveJets/build && $(MAKE) -f tests/CMakeFiles/AppWavejet.dir/build.make tests/CMakeFiles/AppWavejet.dir/src/AppWavejet/main.cpp.i
+.PHONY : src/AppWavejet/main.cpp.i
+
+src/AppWavejet/main.s: src/AppWavejet/main.cpp.s
+
+.PHONY : src/AppWavejet/main.s
+
+# target to generate assembly for a file
+src/AppWavejet/main.cpp.s:
+	cd /home/maxime/Documents/C++/Stage/CPPWaveJets/build && $(MAKE) -f tests/CMakeFiles/AppWavejet.dir/build.make tests/CMakeFiles/AppWavejet.dir/src/AppWavejet/main.cpp.s
+.PHONY : src/AppWavejet/main.cpp.s
 
 src/Cylinder/CylinderCloud.o: src/Cylinder/CylinderCloud.cpp.o
 
@@ -296,11 +338,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Plan"
 	@echo "... Kwavejet"
 	@echo "... Cylinder"
+	@echo "... rebuild_cache"
+	@echo "... AppWavejet"
+	@echo "... src/AppWavejet/main.o"
+	@echo "... src/AppWavejet/main.i"
+	@echo "... src/AppWavejet/main.s"
 	@echo "... src/Cylinder/CylinderCloud.o"
 	@echo "... src/Cylinder/CylinderCloud.i"
 	@echo "... src/Cylinder/CylinderCloud.s"

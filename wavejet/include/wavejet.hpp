@@ -59,8 +59,8 @@ class Wavejet
         void display(cv::viz::Viz3d& cam);
 
 
-        Phi _phi { _order };
-
+        unsigned int _order; // wavejet order
+        Phi          _phi { _order };
 
 
     private :
@@ -112,8 +112,6 @@ class Wavejet
         void compute_a();
 
 
-
-        unsigned int     _order;         // wavejet order
 
         unsigned int     _nneigh;        // number of neighbors
         unsigned int     _ncolPhi;       // number of Phi matrix columns
