@@ -58,7 +58,9 @@ class Wavejet
          */
         void display(cv::viz::Viz3d& cam);
 
-        // TODO : register image function (with path)
+
+        Phi _phi { _order };
+
 
 
     private :
@@ -128,7 +130,6 @@ class Wavejet
         Eigen::VectorXd  _theta;         // polar theta
         Eigen::VectorXd  _z;             // polar z
 
-        Phi              _phi { _order };
         Eigen::MatrixXd  _indices;       // used pair (k,n) in phi(k,n) (_ncolPhi x 2)
 
         Eigen::MatrixXcd _an;            // an values

@@ -57,7 +57,7 @@ int main(int argc, char** argv)
                 << "phi(" << order << ", " << n << ") + " 
                 << "phi(" << order << ", " << abs(n) << ")" << endl;
         //auto scale = order == 0 ? 1 : order * order;
-        auto scale = order == 0 ? 1 : exp(order) / order;
+        auto scale = order == 0 ? 1 : exp(order) / (order * 2);
         phi.wiseset(order, n, complex<double> { 0.1 / (scale), 0.1 / (scale) });
 
         WavejetDisplay wd { phi, order };

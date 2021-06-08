@@ -9,15 +9,6 @@ constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
 // max size of cloud points plan
 constexpr int MAX_DOTS_CLOUD_RADIUS = 10;
 
-// max points for cloud points
-constexpr unsigned int MAX_CLOUD_POINTS   = 200;
-constexpr unsigned int MAX_CYLINDER_CLOUD = 
-    MAX_CLOUD_POINTS * 2 + // 2 faces
-    MAX_CLOUD_POINTS * 4;  // cyl
-
-// wavejet order demo
-constexpr unsigned int ORDER = 2;
-
 // select seed from time
 inline double generateUniformDouble(double min, double max) 
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "config.hpp"
+#include "../../tests/randomizer.hpp"
 
 #include <array>
 #include <cassert>
@@ -15,6 +15,12 @@
 
 #include <Eigen/Dense>
 
+// max points for cloud points
+constexpr unsigned int MAX_CLOUD_POINTS   = 200;
+
+constexpr unsigned int MAX_CYLINDER_CLOUD = 
+    MAX_CLOUD_POINTS * 2 + // 2 faces
+    MAX_CLOUD_POINTS * 4;  // cyl
 
 
 class CylinderCloud
@@ -53,7 +59,6 @@ class CylinderCloud
 
 
     private:
-        std::array<cv::Point3d, MAX_CYLINDER_CLOUD> _dots;
 
         /**
          * @brief generate a random 3D point for _origin
@@ -92,6 +97,7 @@ class CylinderCloud
         void apply_rotation();
 
 
+        std::array<cv::Point3d, MAX_CYLINDER_CLOUD> _dots;
 
         cv::Point3d _origin;
         cv::Vec3d   _vec;

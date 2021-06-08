@@ -47,7 +47,7 @@ void Wavejet::display(cv::viz::Viz3d& cam)
 MatrixXd Wavejet::list_to_matrixXd(const Neighbors& neighbors)
 {
     u_int i = 0;
-    MatrixXd mat { 3, _neighbors.size() - 1 };
+    MatrixXd mat { 3, neighbors.size() - 1 };
     for (const auto& p : neighbors)
     {
         if (p.x == _p(0) && p.y == _p(1) && p.z == _p(2))
