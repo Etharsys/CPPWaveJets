@@ -1,2 +1,0 @@
-/usr/bin/ar qc libWavejet.a  CMakeFiles/Wavejet.dir/src/phi.cpp.o CMakeFiles/Wavejet.dir/src/wavejet.cpp.o CMakeFiles/Wavejet.dir/src/wavejetDisplay.cpp.o
-/usr/bin/ranlib libWavejet.a
