@@ -19,9 +19,9 @@ void CylinderCloud::display(Viz3d& cam)
     cam.showWidget("dots", WCloud(_dots, Color::black()));
     cam.showWidget("orig", WCloud(vector {_origin}, Color::green()));
     cam.showWidget("rand", WCloud(vector {centered_p()}, Color::red()));
-    cv::Point3d vec { _vec(0) * 10, _vec(1) * 10, _vec(2) * 10};
-    cv::Point3d ori { 0, 0, 0 };
-    cam.showWidget("t2", cv::viz::WLine(ori, vec, cv::viz::Color::blue()));
+    //cv::Point3d vec { _vec(0) * 10, _vec(1) * 10, _vec(2) * 10};
+    //cv::Point3d ori { 0, 0, 0 };
+    //cam.showWidget("t2", cv::viz::WLine(ori, vec, cv::viz::Color::blue()));
 }
 
 Point3d CylinderCloud::centered_p()
@@ -46,8 +46,8 @@ Point3d CylinderCloud::random_origin()
 Vec3d CylinderCloud::random_3d_vector()
 {
     Vec3d vec { generateUniformDouble(), 
-                   generateUniformDouble(), 
-                   generateUniformDouble() };
+                generateUniformDouble(), 
+                generateUniformDouble() };
     normalize(vec, vec);
     return vec;
 }
@@ -65,7 +65,7 @@ void CylinderCloud::create_all_random_points_on_plan()
             _dots.at(j) = create_random_point_on_cyl();
         }
     }
-    apply_rotation();
+    //apply_rotation();
 }
 
 cv::Point3d CylinderCloud::create_random_point_on_cyl()

@@ -15,6 +15,10 @@
 
 #include <Eigen/Dense>
 
+
+// max noise percentage for cloud dots
+constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
+
 // max points for cloud points
 constexpr unsigned int MAX_CLOUD_POINTS   = 200;
 
@@ -103,5 +107,4 @@ class CylinderCloud
         cv::Vec3d   _vec;
 
         double _height = generateUniformDouble(10, 30);
-
 };

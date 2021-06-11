@@ -28,7 +28,7 @@ void CloudDots::display(Viz3d& cam)
     
     
     // opencv
-    cam.showWidget("dots", WCloud(_dots, Color::black()));
+    cam.showWidget("plan dots", WCloud(_dots, Color::black()));
     /*
     Point3d p1 { _vecA[0] * 10, _vecA[1] * 10, _vecA[2] * 10 };
     cam.showWidget("v1", WLine(_origin, p1 + _origin, Color::green()));
@@ -106,4 +106,16 @@ void CloudDots::generate_random_noise()
             return Point3d { p.x, p.y, p.z + z}; 
         }
     );
+}
+
+vector<Point3d> CloudDots::dots_to_vector()
+{
+    vector<Point3d> dots_vec;
+
+    for (const auto& dot : _dots)
+    {
+        dots_vec.emplace_back(dot);
+    }
+
+    return dots_vec;
 }

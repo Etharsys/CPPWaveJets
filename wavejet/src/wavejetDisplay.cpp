@@ -8,7 +8,7 @@ using namespace viz;
 
 void WavejetDisplay::display (Viz3d& cam)
 {
-    cam.showWidget("dots", WCloud(_f, Color::black()));
+    //cam.showWidget("dots", WCloud(_f, Color::black()));
     display_1st_radius(cam);
     display_all_radius(cam);
 }

@@ -3,11 +3,10 @@
 #include <random>
 #include <chrono>
 
-// max noise percentage for cloud dots
-constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
 
 // max size of cloud points plan
 constexpr int MAX_DOTS_CLOUD_RADIUS = 10;
+
 
 // select seed from time
 inline double generateUniformDouble(double min, double max) 

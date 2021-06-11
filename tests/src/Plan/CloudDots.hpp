@@ -1,6 +1,6 @@
 #pragma once
 
-#include "config.hpp"
+#include "../../tests/randomizer.hpp"
 
 #include <array>
 #include <cassert>
@@ -14,6 +14,11 @@
 
 #include <Eigen/Dense>
 
+
+// max noise percentage for cloud dots
+constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
+
+constexpr int MAX_CLOUD_POINTS = 1000;
 
 
 class CloudDots
@@ -57,7 +62,9 @@ class CloudDots
         cv::Point3d centered_p();
 
 
-        std::array<cv::Point3d, MAX_CLOUD_POINTS> _dots;
+        std::vector<cv::Point3d> dots_to_vector();
+
+
 
 
     private:
@@ -96,6 +103,8 @@ class CloudDots
          */
         void generate_random_noise();
 
+
+        std::array<cv::Point3d, MAX_CLOUD_POINTS> _dots;
 
         cv::Point3d _origin; 
         cv::Vec3d   _vecA;

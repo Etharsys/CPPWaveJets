@@ -2,7 +2,6 @@
 
 #include "wavejet.hpp"
 #include "CloudDots.hpp"
-#include "CylinderCloud.hpp"
 
 #include <opencv2/viz/viz3d.hpp>
 #include <Eigen/Core>
@@ -11,6 +10,11 @@
 using namespace std;
 using namespace cv;
 using namespace viz;
+
+
+// wavejet order demo
+constexpr unsigned int ORDER = 2;
+constexpr double NEIGHBOURHOOD_RADIUS = 100.;
 
 
 Viz3d init_window()
@@ -22,14 +26,12 @@ Viz3d init_window()
 }
 
 void display([[maybe_unused]] Viz3d& cam, 
-             [[maybe_unused]] CloudDots& cd, 
              [[maybe_unused]] Wavejet& wj,
-             [[maybe_unused]] CylinderCloud& cylDots)
+             [[maybe_unused]] CloudDots& cd)
 {
-    //cd.display(cam);
-    //wj.display_svdV(cam);
+    wj.display_svdV(cam);
     wj.display(cam);
-    //cylDots.display(cam);
+    cd.display(cam);
 }
 
 int main(int argc, char** argv)
@@ -41,14 +43,17 @@ int main(int argc, char** argv)
     auto cam = init_window();
 
     CloudDots cd;
-    //Wavejet<ORDER> wj { cd.centered_p(), cd._dots, 100.};
-    CylinderCloud cylDots;
     Wavejet wj { ORDER, 
-                 cylDots.centered_p(), 
-                 cylDots.dots_to_vector(), 
-                 100.};
+                 cd.centered_p(), 
+                 cd.dots_to_vector(), 
+                 NEIGHBOURHOOD_RADIUS};
 
-    display(cam, cd, wj, cylDots);
+    //wj._phi.wiseset(0, 0, std::complex<double> { 0, 0 });
+    //wj._phi.wiseset(1, 1, std::complex<double> { 0, 0 });
+    wj._phi.prompt_display();
+     
+
+    display(cam, wj, cd);
 
     cam.spin();
 
