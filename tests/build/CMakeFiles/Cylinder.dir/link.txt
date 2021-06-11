@@ -1,1 +1,0 @@
-/usr/bin/g++-9  -g   CMakeFiles/Cylinder.dir/src/Cylinder/CylinderCloud.cpp.o CMakeFiles/Cylinder.dir/src/Cylinder/main.cpp.o  -o Cylinder  -lWavejet 

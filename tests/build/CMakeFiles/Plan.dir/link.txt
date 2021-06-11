@@ -1,1 +1,0 @@
-/usr/bin/g++-9  -g   CMakeFiles/Plan.dir/src/Plan/CloudDots.cpp.o CMakeFiles/Plan.dir/src/Plan/main.cpp.o  -o Plan  -lWavejet 
