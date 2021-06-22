@@ -10,18 +10,38 @@ void CylinderCloud::generate_random_cloud()
 {
 
     create_all_random_points_on_plan();
+    generate_transformation_mat();
+    compute_transformation_matrix();
     //generate_random_noise();
 }
 
-void CylinderCloud::display(Viz3d& cam)
+void CylinderCloud::generate_transformation_mat()
 {
-    // opencv
+    double alpha = generateUniformDouble(0, 2 * M_PI);
+    double beta  = generateUniformDouble(0, 2 * M_PI);
+    double gamma = generateUniformDouble(0, 2 * M_PI);
+
+    _T = Eigen::Translation3d(_origin.x, _origin.y, _origin.z) 
+        * Eigen::AngleAxisd(alpha, Eigen::Vector3d::UnitX())
+        * Eigen::AngleAxisd(beta , Eigen::Vector3d::UnitY())
+        * Eigen::AngleAxisd(gamma, Eigen::Vector3d::UnitZ());
+}
+
+void CylinderCloud::compute_transformation_matrix()
+{
+    for (auto& dot : _dots)
+    {
+        Eigen::Vector3d eigen_dot { dot.x, dot.y, dot.z };
+        eigen_dot = _T * eigen_dot;
+        dot = Point3d { eigen_dot(0), eigen_dot(1), eigen_dot(2) };
+    }
+}
+
+void CylinderCloud::display(Viz3d& cam)
+{ //opencv display part
     cam.showWidget("dots", WCloud(_dots, Color::black()));
-    cam.showWidget("orig", WCloud(vector {_origin}, Color::green()));
-    cam.showWidget("rand", WCloud(vector {centered_p()}, Color::red()));
-    //cv::Point3d vec { _vec(0) * 10, _vec(1) * 10, _vec(2) * 10};
-    //cv::Point3d ori { 0, 0, 0 };
-    //cam.showWidget("t2", cv::viz::WLine(ori, vec, cv::viz::Color::blue()));
+    //cam.showWidget("orig", WCloud(vector {_origin}, Color::green()));
+    cam.showWidget("selected_p", WCloud(vector {centered_p()}, Color::red()));
 }
 
 Point3d CylinderCloud::centered_p()
@@ -43,15 +63,6 @@ Point3d CylinderCloud::random_origin()
                      generateUniformDouble() };
 }
 
-Vec3d CylinderCloud::random_3d_vector()
-{
-    Vec3d vec { generateUniformDouble(), 
-                generateUniformDouble(), 
-                generateUniformDouble() };
-    normalize(vec, vec);
-    return vec;
-}
-
 void CylinderCloud::create_all_random_points_on_plan()
 {
     auto step = MAX_CYLINDER_CLOUD / MAX_CLOUD_POINTS;
@@ -65,7 +76,6 @@ void CylinderCloud::create_all_random_points_on_plan()
             _dots.at(j) = create_random_point_on_cyl();
         }
     }
-    //apply_rotation();
 }
 
 cv::Point3d CylinderCloud::create_random_point_on_cyl()
@@ -73,9 +83,7 @@ cv::Point3d CylinderCloud::create_random_point_on_cyl()
     auto theta  = generateUniformDouble(0, 2*M_PI);
     auto radius = MAX_DOTS_CLOUD_RADIUS;
     auto z      = generateUniformDouble(-_height, _height);
-    return Point3d { radius * cos(theta) + _origin.x, 
-                     radius * sin(theta) + _origin.y, 
-                     z + _origin.z };
+    return Point3d { radius * cos(theta), radius * sin(theta), z };
 }
 
 Point3d CylinderCloud::create_random_point_on_plan(double z)
@@ -83,48 +91,7 @@ Point3d CylinderCloud::create_random_point_on_plan(double z)
     auto radius = generateUniformDouble(0, MAX_DOTS_CLOUD_RADIUS);
     auto theta  = generateUniformDouble(0, 2*M_PI);
 
-    return Point3d { radius * cos(theta) + _origin.x, 
-                     radius * sin(theta) + _origin.y, 
-                     z + _origin.z };
-}
-
-void CylinderCloud::apply_rotation()
-{
-    double pitch =  _vec.dot(Vec3d { 1, 0, 0 });
-    double roll  =  _vec.dot(Vec3d { 0, 1, 0 });
-    double yaw   =  _vec.dot(Vec3d { 0, 0, 1 });
-
-    auto cosa = cos(yaw);
-    auto sina = sin(yaw);
-
-    auto cosb = cos(pitch);
-    auto sinb = sin(pitch);
-
-    auto cosc = cos(roll);
-    auto sinc = sin(roll);
-
-    auto Axx = cosa*cosb;
-    auto Axy = cosa*sinb*sinc - sina*cosc;
-    auto Axz = cosa*sinb*cosc + sina*sinc;
-
-    auto Ayx = sina*cosb;
-    auto Ayy = sina*sinb*sinc + cosa*cosc;
-    auto Ayz = sina*sinb*cosc - cosa*sinc;
-
-    auto Azx = -sinb;
-    auto Azy = cosb*sinc;
-    auto Azz = cosb*cosc;
-
-    for (auto& p : _dots)
-    {
-        auto px = p.x;
-        auto py = p.y;
-        auto pz = p.z;
-
-        p.x = Axx*px + Axy*py + Axz*pz;
-        p.y = Ayx*px + Ayy*py + Ayz*pz;
-        p.z = Azx*px + Azy*py + Azz*pz;
-    }
+    return Point3d { radius * cos(theta), radius * sin(theta), z };
 }
 
 void CylinderCloud::generate_random_noise()

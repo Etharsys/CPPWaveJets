@@ -14,6 +14,7 @@
 #include <opencv2/viz/viz3d.hpp>
 
 #include <Eigen/Dense>
+#include <Eigen/Geometry> 
 
 
 // max noise percentage for cloud dots
@@ -33,13 +34,17 @@ constexpr unsigned int MAX_CYLINDER_CLOUD =
 class CylinderCloud
 {
     public:
-        CylinderCloud (const cv::Point3d& origin, const cv::Vec3d& vec)
-            : _origin { origin }, _vec { vec }
+        CylinderCloud (const cv::Point3d& origin)
+            : _origin { origin }
         {
             generate_random_cloud();
         }
 
-        CylinderCloud () : CylinderCloud { random_origin(), random_3d_vector() }
+        /**
+         * @brief generate a random cylinder dot cloud with random size,
+         * rotation and position
+         */
+        CylinderCloud () : CylinderCloud { random_origin() }
         { }
 
         /**
@@ -59,7 +64,9 @@ class CylinderCloud
          */
         cv::Point3d centered_p();
 
-
+        /**
+         * Transform the array container to the same vector container
+         */
         std::vector<cv::Point3d> dots_to_vector();
 
 
@@ -72,12 +79,6 @@ class CylinderCloud
          * @return an Opencv 3D random point
          */
         cv::Point3d random_origin();
-
-        /**
-         * @brief generate a random 3D vector for _vecA or _vecB
-         * @return an Opencv 3D vector
-         */
-        cv::Vec3d random_3d_vector();
 
         /**
          * @brief generate a 3D random point wrt the plan
@@ -101,13 +102,25 @@ class CylinderCloud
          */
         void generate_random_noise();
 
-        void apply_rotation();
+        /**
+         * @brief generate the translation * rotation matrix _T :
+         * the transformation matrix
+         */
+        void generate_transformation_mat();
+
+        /**
+         * @brief compute for each dot of _dots the transformation matrix :
+         * dot = _T * dot
+         */
+        void compute_transformation_matrix();
 
 
         std::array<cv::Point3d, MAX_CYLINDER_CLOUD> _dots;
 
         cv::Point3d _origin;
         cv::Vec3d   _vec;
+
+        Eigen::Transform<double, 3, Eigen::Affine> _T;
 
         double _height = generateUniformDouble(MIN_HEIGHT, MAX_HEIGHT);
 };
