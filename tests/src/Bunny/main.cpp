@@ -57,13 +57,6 @@ int main(int argc, char** argv)
         pts.emplace_back(Point3d { x, y, z });
     }
     cam.showWidget("rabbit", WCloud(pts, Color::black()));
-    /*for (u_int i = 0; i <= pts.size() - 3; ++i)
-    {
-        vector<Point3d> triangle { pts.at(i), pts.at(i+1), pts.at(i+2) };
-        Mat polygon3 = (Mat_<int>(1,4) << 3, 0, 1, 2);
-        string name = "tri" + to_string(i);
-        cam.showWidget(name, WMesh { triangle, polygon3 });
-    }*/
 
     cam.spin();
 
