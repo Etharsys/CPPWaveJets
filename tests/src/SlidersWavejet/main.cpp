@@ -87,22 +87,23 @@ static Mat wavejet_mat (int k, int n)
         return img;
     }
     resize(img, img, Size(), 0.1, 0.1);
-    rotate(img, img, ROTATE_90_CLOCKWISE);
+    putText(img, to_string(k) + "_" + to_string(n), Point(0, 10), FONT_HERSHEY_COMPLEX, 0.4, Scalar(0,0,0));
+    rotate(img, img, ROTATE_90_COUNTERCLOCKWISE);
     return img;
 }
 
 static void display_real_wavejets()
 {
     Mat wj_add;
-    if (real_0_0 != 0) wj_add.push_back(wavejet_mat(0, 0));
-    if (real_1_1 != 0) wj_add.push_back(wavejet_mat(1, 1));
-    if (real_2_2 != 0) wj_add.push_back(wavejet_mat(2, 2));
-    if (real_2_0 != 0) wj_add.push_back(wavejet_mat(2, 0));
-    if (real_3_3 != 0) wj_add.push_back(wavejet_mat(3, 3));
-    if (real_3_1 != 0) wj_add.push_back(wavejet_mat(3, 1));
-    if (real_4_4 != 0) wj_add.push_back(wavejet_mat(4, 4));
-    if (real_4_2 != 0) wj_add.push_back(wavejet_mat(4, 2));
-    if (real_4_0 != 0) wj_add.push_back(wavejet_mat(4, 0));
+    wj_add.push_back(wavejet_mat(0, 0));
+    wj_add.push_back(wavejet_mat(1, 1));
+    wj_add.push_back(wavejet_mat(2, 2));
+    wj_add.push_back(wavejet_mat(2, 0));
+    wj_add.push_back(wavejet_mat(3, 3));
+    wj_add.push_back(wavejet_mat(3, 1));
+    wj_add.push_back(wavejet_mat(4, 4));
+    wj_add.push_back(wavejet_mat(4, 2));
+    wj_add.push_back(wavejet_mat(4, 0));
     if (!wj_add.empty())
     {
         rotate(wj_add, wj_add, ROTATE_90_CLOCKWISE);

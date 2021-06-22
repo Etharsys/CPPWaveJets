@@ -5,7 +5,7 @@
 
 
 // max size of cloud points plan
-constexpr int MAX_DOTS_CLOUD_RADIUS = 10;
+constexpr int MAX_DOTS_CLOUD_RADIUS = 100;
 
 
 // select seed from time

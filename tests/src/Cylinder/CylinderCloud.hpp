@@ -22,6 +22,9 @@ constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
 // max points for cloud points
 constexpr unsigned int MAX_CLOUD_POINTS   = 200;
 
+constexpr unsigned int MIN_HEIGHT = 100;
+constexpr unsigned int MAX_HEIGHT = 300;
+
 constexpr unsigned int MAX_CYLINDER_CLOUD = 
     MAX_CLOUD_POINTS * 2 + // 2 faces
     MAX_CLOUD_POINTS * 4;  // cyl
@@ -106,5 +109,5 @@ class CylinderCloud
         cv::Point3d _origin;
         cv::Vec3d   _vec;
 
-        double _height = generateUniformDouble(10, 30);
+        double _height = generateUniformDouble(MIN_HEIGHT, MAX_HEIGHT);
 };

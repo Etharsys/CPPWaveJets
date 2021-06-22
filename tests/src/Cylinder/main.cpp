@@ -21,7 +21,7 @@ Viz3d init_window()
 {
     Viz3d cam { "Wavejets Demo" };
     cam.setBackgroundColor(Color::white());
-    //cam.showWidget("coordinate", WCoordinateSystem(10));
+    cam.showWidget("coordinate", WCoordinateSystem(10));
     return cam;
 }
 
