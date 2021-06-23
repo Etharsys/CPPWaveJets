@@ -20,15 +20,11 @@
 // max noise percentage for cloud dots
 constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
 
+constexpr unsigned int MIN_HEIGHT = 20;
+constexpr unsigned int MAX_HEIGHT = 60;
+
 // max points for cloud points
-constexpr unsigned int MAX_CLOUD_POINTS   = 200;
-
-constexpr unsigned int MIN_HEIGHT = 10;
-constexpr unsigned int MAX_HEIGHT = 30;
-
-constexpr unsigned int MAX_CYLINDER_CLOUD = 
-    MAX_CLOUD_POINTS * 2 + // 2 faces
-    MAX_CLOUD_POINTS * 4;  // cyl
+constexpr unsigned int DOTS_THRESHOLD = 200;
 
 
 class CylinderCloud
@@ -74,18 +70,14 @@ class CylinderCloud
 
         /**
          * @brief Transform the array container to the same vector container
-         * @return the list of dots
-         */
-        std::vector<cv::Point3d> dots_to_vector();
-
-        /**
-         * @brief Transform the array container to the same vector container
          * @arg p : a selected point
          * @arg radius : the radius of neighbourhood
          * @return the list of dots which are nearest than radius
          */
-        std::vector<cv::Point3d> dots_to_vector(const cv::Point3d& p, int radius);
+        std::vector<cv::Point3d> dots_to_vector(const cv::Point3d& choosen, int radius);
 
+
+        std::vector<cv::Point3d> _dots;
 
 
 
@@ -126,13 +118,27 @@ class CylinderCloud
         void generate_transformation_mat();
 
         /**
-         * @brief compute for each dot of _dots the transformation matrix :
-         * dot = _T * dot
+         * @brief compute for each dot of _face1, _face2 and _tube
+         * the transformation matrix : dot = _T * dot
          */
         void compute_transformation_matrix();
 
+        /**
+         * @brief compute the transformation matrix for a dot
+         * @arg dot : dot to transform
+         * @return the transformed dot
+         */
+        cv::Point3d compute_transformation_matrix(const cv::Point3d& dot);
 
-        std::array<cv::Point3d, MAX_CYLINDER_CLOUD> _dots;
+        /**
+         * @brief Transform the array container to the same vector container
+         */
+        void dots_to_vector();
+
+
+        std::array<cv::Point3d, DOTS_THRESHOLD * 2> _face1;
+        std::array<cv::Point3d, DOTS_THRESHOLD * 2> _face2;
+        std::array<cv::Point3d, DOTS_THRESHOLD * 4> _tube;
 
         cv::Point3d _origin;
         cv::Vec3d   _vec;
