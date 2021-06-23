@@ -14,7 +14,7 @@ using namespace viz;
 
 // wavejet order demo
 constexpr unsigned int ORDER = 2;
-constexpr double NEIGHBOURHOOD_RADIUS = 100.;
+constexpr double NEIGHBOURHOOD_RADIUS = 10.;
 
 
 Viz3d init_window()
@@ -29,9 +29,10 @@ void display([[maybe_unused]] Viz3d& cam,
              [[maybe_unused]] Wavejet& wj,
              [[maybe_unused]] CylinderCloud& cylDots)
 {
-    //wj.display_svdV(cam);
-    //wj.display(cam);
-    cylDots.display(cam);
+    wj.display_svdV(cam);
+    wj.display(cam);
+    //cylDots.display(cam);
+    cylDots.display(cam, cylDots.centered_p(), NEIGHBOURHOOD_RADIUS);
 }
 
 int main(int argc, char** argv)
@@ -45,13 +46,16 @@ int main(int argc, char** argv)
     CylinderCloud cylDots;
     Wavejet wj { ORDER, 
                  cylDots.centered_p(), 
-                 cylDots.dots_to_vector(), 
+                 cylDots.dots_to_vector(cylDots.centered_p(), NEIGHBOURHOOD_RADIUS), 
                  NEIGHBOURHOOD_RADIUS};
 
-    wj._phi.wiseset(0, 0, std::complex<double> { 0, 0 });
-    wj._phi.wiseset(1, 1, std::complex<double> { 0, 0 });
+    auto sp1 = wj._phi.at(2, -2);
+    wj._phi.wiseset(2,-2, complex<double> { sp1.real() * 10, 0});
+    auto sp2 = wj._phi.at(2, 0);
+    wj._phi.wiseset(2, 0, complex<double> { sp2.real(), 0});
+    
     wj._phi.prompt_display();
-     
+    
 
     display(cam, wj, cylDots);
 

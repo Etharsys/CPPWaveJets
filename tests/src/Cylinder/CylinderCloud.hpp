@@ -23,8 +23,8 @@ constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
 // max points for cloud points
 constexpr unsigned int MAX_CLOUD_POINTS   = 200;
 
-constexpr unsigned int MIN_HEIGHT = 100;
-constexpr unsigned int MAX_HEIGHT = 300;
+constexpr unsigned int MIN_HEIGHT = 10;
+constexpr unsigned int MAX_HEIGHT = 30;
 
 constexpr unsigned int MAX_CYLINDER_CLOUD = 
     MAX_CLOUD_POINTS * 2 + // 2 faces
@@ -58,6 +58,14 @@ class CylinderCloud
          */
         void display(cv::viz::Viz3d& cam);
 
+        /**
+         * @brief opencv display red dots if distance < radius
+         * @arg cam : the opencv, viz camera (window)
+         * @arg p : a selected point
+         * @arg radius : the radius of neighbourhood
+         */
+        void display(cv::viz::Viz3d& cam, const cv::Point3d& p, int radius);
+
 
         /**
          * @brief get the nearest point from 0, 0, z
@@ -65,9 +73,18 @@ class CylinderCloud
         cv::Point3d centered_p();
 
         /**
-         * Transform the array container to the same vector container
+         * @brief Transform the array container to the same vector container
+         * @return the list of dots
          */
         std::vector<cv::Point3d> dots_to_vector();
+
+        /**
+         * @brief Transform the array container to the same vector container
+         * @arg p : a selected point
+         * @arg radius : the radius of neighbourhood
+         * @return the list of dots which are nearest than radius
+         */
+        std::vector<cv::Point3d> dots_to_vector(const cv::Point3d& p, int radius);
 
 
 
