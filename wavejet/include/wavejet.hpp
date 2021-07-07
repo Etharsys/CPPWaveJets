@@ -37,7 +37,11 @@ class Wavejet
               _nr { neighbor_radius }
         {
             assert(neighbor_radius >= 0);
-            //std::cout << _p << std::endl;
+            /*std::cout << "choosen point : " << _p << std::endl;
+            std::cout << "Number of selected points : " << neighbors.size() << std::endl;
+            std::cout << neighbors << std::endl;
+            std::cout << "EIGEN : \n" << std::endl; 
+            std::cout << _neighbors.adjoint() << std::endl; */
             compute_wavejets();
         }
 
@@ -53,10 +57,27 @@ class Wavejet
         void display_svdV(cv::viz::Viz3d& cam);
 
         /**
+         * @brief construct the affine3d transformation from the SVD(v) vectors
+         * @return the opencv affine3d transformation 
+         */
+        cv::Affine3d get_svd();
+
+        /**
          * @brief display with opencv the wavejet
          * @arg cam : the opencv camera
+         * @arg transform : the opencv affine3d transformation
+         * @arg idx : wavejet id
          */
-        void display(cv::viz::Viz3d& cam);
+        void display(cv::viz::Viz3d& cam, 
+                     const cv::Affine3d& transform, 
+                     u_int idx = 0);
+
+        /**
+         * @brief display with opencv the wavejet
+         * @arg cam : the opencv camera
+         * @arg idx : wavejet id
+         */
+        void display(cv::viz::Viz3d& cam, u_int idx = 0);
 
 
         unsigned int _order; // wavejet order

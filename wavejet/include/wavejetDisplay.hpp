@@ -12,8 +12,11 @@
 
 #include "phi.hpp"
 
-constexpr unsigned int ANGLE_DIVISION  = 64;
-constexpr unsigned int RADIUS_DIVISION = 12;
+// number of angle division for wavejet render
+constexpr unsigned int ANGLE_DIVISION  = 20; // 64
+// number of radius division for wavejet render
+constexpr unsigned int RADIUS_DIVISION = 5;  //12
+// initial wavejet render radius (can be scale)
 constexpr unsigned int WAVEJET_DISPLAY_RADIUS = 3;
 
 
@@ -32,26 +35,41 @@ class WavejetDisplay
         void compute_and_find_point_position();
 
         /**
-         * diplay on opencv window circle dots and triangle to
+         * diplay on opencv window circle points and triangles to
          * render the display 
          * @arg cam : the opencv camera
+         * @arg transform : the opencv affine3d transformation
+         * @arg radius_scale : the scale for wavejet render
+         * @arg idx : wavejet id
          */
-        void display (cv::viz::Viz3d& cam);
+        void display (cv::viz::Viz3d& cam, 
+                      const cv::Affine3d& transform, 
+                      double radius_scale, 
+                      u_int idx = 0);
+        
+        /**
+         * @brief display with opencv the wavejet
+         */
+        void display(cv::viz::Viz3d& cam, u_int idx = 0);
 
 
     private:
         
         /**
-         * draw the first radius circle of wavejet render (as triangle)
-         * @arg cam : the opencv camera
+         * draw the first radius circle of wavejet render (as triangles)
          */
-        void display_1st_radius (cv::viz::Viz3d& cam);
+        void display_1st_radius (cv::viz::Viz3d& cam, 
+                                 const cv::Affine3d& transform, 
+                                 double radius_scale, 
+                                 u_int idx = 0);
 
         /**
-         * draw all others radius circle of wavejet render (as quadrilateral)
-         * @arg cam : the opencv camera
+         * draw all others radius circle of wavejet render (as quadrilaterals)
          */
-        void display_all_radius (cv::viz::Viz3d& cam);
+        void display_all_radius (cv::viz::Viz3d& cam, 
+                                 const cv::Affine3d& transform, 
+                                 double radius_scale, 
+                                 u_int idx = 0);
 
         /**
          * compute f according to function 2.15 in the thesis

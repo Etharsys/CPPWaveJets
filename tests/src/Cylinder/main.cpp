@@ -3,6 +3,8 @@
 #include "wavejet.hpp"
 #include "CylinderCloud.hpp"
 
+#include "../../tests/randomizer.hpp"
+
 #include <opencv2/viz/viz3d.hpp>
 #include <Eigen/Core>
 
@@ -14,7 +16,7 @@ using namespace viz;
 
 // wavejet order demo
 constexpr unsigned int ORDER = 2;
-constexpr double NEIGHBOURHOOD_RADIUS = 10.;
+constexpr double NEIGHBOURHOOD_RADIUS = 2.;
 
 
 Viz3d init_window()
@@ -27,12 +29,15 @@ Viz3d init_window()
 
 void display([[maybe_unused]] Viz3d& cam, 
              [[maybe_unused]] Wavejet& wj,
-             [[maybe_unused]] CylinderCloud& cylDots)
+             [[maybe_unused]] CylinderCloud& cylDots,
+             [[maybe_unused]] u_int idx,
+             [[maybe_unused]] Affine3d transform,
+             Point3d point)
 {
     wj.display_svdV(cam);
-    wj.display(cam);
-    //cylDots.display(cam);
-    cylDots.display(cam, cylDots.centered_p(), NEIGHBOURHOOD_RADIUS);
+    wj.display(cam, transform, idx);
+    cylDots.display(cam);
+    cylDots.display(cam, point, NEIGHBOURHOOD_RADIUS);
 }
 
 int main(int argc, char** argv)
@@ -44,21 +49,23 @@ int main(int argc, char** argv)
     auto cam = init_window();
 
     CylinderCloud cylDots;
-    Wavejet wj { ORDER, 
-                 cylDots.centered_p(), 
-                 cylDots.dots_to_vector(cylDots.centered_p(), NEIGHBOURHOOD_RADIUS), 
-                 NEIGHBOURHOOD_RADIUS};
 
-    auto sp1 = wj._phi.at(2, -2);
-    wj._phi.wiseset(2,-2, complex<double> { sp1.real() * 10, 0});
-    auto sp2 = wj._phi.at(2, 0);
-    wj._phi.wiseset(2, 0, complex<double> { sp2.real(), 0});
+    u_int cpt = 0;
+    for (const auto& point : cylDots.tube_to_vector())
+    {
+        cout << "treating ... " << cpt << endl;
+        Wavejet wj {ORDER, 
+                    point, 
+                    cylDots.dots_to_vector(point, NEIGHBOURHOOD_RADIUS), 
+                    NEIGHBOURHOOD_RADIUS};
+        
+        wj._phi.prompt_display();
+        
+        display(cam, wj, cylDots, cpt, wj.get_svd(), point);
+        cpt ++;
+        if (cpt >= 30) break; // too long else ...
+    }
     
-    wj._phi.prompt_display();
-    
-
-    display(cam, wj, cylDots);
-
     cam.spin();
 
     return 0;

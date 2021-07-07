@@ -8,24 +8,24 @@ std::complex<double> Phi::at (u_int k, int n)
 }
 
 
-void Phi::set (u_int k, int n, const std::complex<double>& val)
+void Phi::set (u_int k, int n, const std::complex<double>& value)
 {
     auto it = _phi.at(k).begin() + (k + n) / 2;
     if (_phi.at(k).size() <= (k + n) / 2)
     {
-        _phi.at(k).emplace(it, val);
+        _phi.at(k).emplace(it, value);
     } else 
     {
-        _phi.at(k).at((k + n) / 2) = val;
+        _phi.at(k).at((k + n) / 2) = value;
     }
 }
 
-void Phi::wiseset (u_int k, int n, const std::complex<double>& val)
+void Phi::wiseset (u_int k, int n, const std::complex<double>& value)
 {
-    set(k, n, val);
+    set(k, n, value);
     if (n != 0)
     {
-        set(k, -n, std::conj(val));
+        set(k, -n, std::conj(value));
     }
 }
 

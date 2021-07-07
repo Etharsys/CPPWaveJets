@@ -8,15 +8,22 @@ using namespace Eigen;
 
 void Wavejet::compute_wavejets()
 {
+    //cout << "\nNEIGHBORS : \n" << _neighbors << endl;
     set_lines_cols();
+    //cout << "\nnneigh & ncolphi : " << _nneigh << ", " << _ncolPhi << endl;
     auto svdV = neighbours_principal_vector();
+    //cout << "\nSVD : \n" << svdV << endl;
 
     auto coords = neighbours_coords(svdV);
+    //cout << "\nCOORDS : \n" << coords << endl;
     switch_polar_coords(coords);
+    //cout << "\nPOLAR radius : \n" << _radius.adjoint() << endl;
+    //cout << "\nPOLAR thetas : \n" << _theta.adjoint()  << endl;
+    //cout << "\nPOLAR z      : \n" << _z.adjoint()      << endl;
 
     compute_phi();
     compute_a();
-    cout << "A(n) coefficients : " << _an.transpose() << endl;
+    //cout << "A(n) coefficients : " << _an.transpose() << endl;
 }
 
 
@@ -38,28 +45,49 @@ void Wavejet::display_svdV(cv::viz::Viz3d& cam)
     cam.showWidget("normal", WLine (ori, nm + ori, Color::red  ()));
 }
 
+cv::Affine3d Wavejet::get_svd()
+{
+    auto affine3d = cv::Affine3d();
+    for (u_int i = 0; i < 3; ++i)
+    {
+        affine3d.matrix(i, 0) = _t1(i);
+        affine3d.matrix(i, 1) = _t2(i);
+        affine3d.matrix(i, 2) = _normal(i);   
+    }
+    //cout << "opencv : \n" << affine3d.matrix << endl;
 
-void Wavejet::display(cv::viz::Viz3d& cam)
+    return affine3d.translate(cv::Point3d {_p(0), _p(1), _p(2)} );
+}
+
+
+void Wavejet::display(cv::viz::Viz3d& cam, 
+                      const cv::Affine3d& transform, 
+                      u_int idx)
 {
     WavejetDisplay wd { _phi, _order };
     wd.compute_and_find_point_position();
-    wd.display(cam);
+    wd.display(cam, transform, _nr, idx);
+}
+
+void Wavejet::display(cv::viz::Viz3d& cam, u_int idx)
+{
+    display(cam, cv::Affine3d(), idx);
 }
 
 
 MatrixXd Wavejet::list_to_matrixXd(const Neighbors& neighbors)
 {
     u_int i = 0;
-    MatrixXd mat { 3, neighbors.size() - 1 };
+    MatrixXd mat { neighbors.size(), 3 };
     for (const auto& p : neighbors)
     {
         if (p.x == _p(0) && p.y == _p(1) && p.z == _p(2))
         {
             continue;
         }
-        mat(0, i) = p.x;
-        mat(1, i) = p.y;
-        mat(2, i) = p.z;
+        mat(i, 0) = p.x;
+        mat(i, 1) = p.y;
+        mat(i, 2) = p.z;
         i++;
     }
     return mat;
@@ -68,36 +96,36 @@ MatrixXd Wavejet::list_to_matrixXd(const Neighbors& neighbors)
 
 void Wavejet::set_lines_cols()
 {
-    _nneigh  = _neighbors.row(0).size();
+    _nneigh  = _neighbors.col(0).size();
     _ncolPhi = (pow(_order, 2) / 2.) + (3. * _order / 2) + 1;
 }
 
 
-Matrix3d Wavejet::neighbours_principal_vector()
+Eigen::Matrix3d Wavejet::neighbours_principal_vector()
 {
-    Vector3d average_p { _neighbors.row(0).mean(), 
-                         _neighbors.row(1).mean(),
-                         _neighbors.row(2).mean() };
+    Vector3d average_p { _neighbors.col(0).mean(), 
+                         _neighbors.col(1).mean(),
+                         _neighbors.col(2).mean() };
     Matrix3d c_matrix = 1./_nneigh * 
-                        (_neighbors * _neighbors.adjoint()) -
+                        (_neighbors.adjoint() * _neighbors) -
                         ( average_p *  average_p.adjoint());
     JacobiSVD<MatrixXd> svd { c_matrix, ComputeFullV };
     Matrix3d v = svd.matrixV();
     _t1        = v.col(0);
     _t2        = v.col(1);
     _normal    = v.col(2);
-    return c_matrix;
+    return v;
 }
 
 
-MatrixXd Wavejet::neighbours_coords(const Matrix3d& neighbors_principal_vectors)
+MatrixXd Wavejet::neighbours_coords(const Eigen::Matrix3d& neighbors_principal_vectors)
 {
-    MatrixXd repetition { 3, _nneigh };
+    MatrixXd repetition { _nneigh, 3 };
     for (u_int i = 0; i < _nneigh; ++i)
     {
-        repetition.col(i) = _p; // _nneigh * _p (as colon)
+        repetition.row(i) = _p; // _nneigh * _p (as colon)
     }
-    return neighbors_principal_vectors * (_neighbors - repetition);
+    return (_neighbors - repetition) * neighbors_principal_vectors;
 }
 
 
@@ -108,10 +136,10 @@ void Wavejet::switch_polar_coords(const MatrixXd& locneighbors)
     _z      = VectorXd { _nneigh };
     for (u_int i = 0; i < _nneigh; ++i)
     {
-        _radius(i) = sqrt( pow(locneighbors(0, i), 2) + pow(locneighbors(1, i), 2) );
-        _theta(i)  = atan2(locneighbors(1, i), locneighbors(0, i));
+        _radius(i) = sqrt( pow(locneighbors(i, 0), 2) + pow(locneighbors(i, 1), 2) );
+        _theta(i)  = atan2(locneighbors(i, 1), locneighbors(i, 0));
     }
-    _z = locneighbors.row(2);
+    _z = locneighbors.col(2);
 }
 
 void Wavejet::compute_phi()
@@ -140,9 +168,9 @@ void Wavejet::compute_phi()
     }
     MatrixXcd b = _z.array() * w.array();
     VectorXcd phi = (M.adjoint() * M).inverse() * M.adjoint() * b;
-    //FullPivLU<MatrixXcd> lu_decomp(M);
-    //cout << "rank(M) = " << lu_decomp.rank() << endl << endl;
-    //cout << "idx = " << indices << endl;
+    /*FullPivLU<MatrixXcd> lu_decomp(M);
+    cout << "rank(M) = " << lu_decomp.rank() << endl << endl;
+    cout << "idx = " << indices << endl;*/
     
     idx = 0;
     for (u_int k = 0; k <= _order; ++k) 
@@ -153,10 +181,6 @@ void Wavejet::compute_phi()
             idx++;
         }
     }
-
-    //cout << "phi = " << phi << endl << endl;
-    //cout << "phi = " << phi.adjoint() << endl << endl;
-    //_phi.prompt_display();
 }
 
 

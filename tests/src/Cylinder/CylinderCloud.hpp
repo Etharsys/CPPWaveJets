@@ -20,11 +20,11 @@
 // max noise percentage for cloud dots
 constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
 
-constexpr unsigned int MIN_HEIGHT = 20;
-constexpr unsigned int MAX_HEIGHT = 60;
+constexpr unsigned int MIN_HEIGHT = 10;
+constexpr unsigned int MAX_HEIGHT = 20;
 
 // max points for cloud points
-constexpr unsigned int DOTS_THRESHOLD = 200;
+constexpr unsigned int DOTS_THRESHOLD = 500;
 
 
 class CylinderCloud
@@ -75,6 +75,10 @@ class CylinderCloud
          * @return the list of dots which are nearest than radius
          */
         std::vector<cv::Point3d> dots_to_vector(const cv::Point3d& choosen, int radius);
+
+        std::vector<cv::Point3d> tube_to_vector();
+
+        cv::Affine3d get_affine(const cv::Point3d& point);
 
 
         std::vector<cv::Point3d> _dots;
@@ -140,10 +144,10 @@ class CylinderCloud
         std::array<cv::Point3d, DOTS_THRESHOLD * 2> _face2;
         std::array<cv::Point3d, DOTS_THRESHOLD * 4> _tube;
 
+        Eigen::Transform<double, 3, Eigen::Affine> _T;
+
         cv::Point3d _origin;
         cv::Vec3d   _vec;
-
-        Eigen::Transform<double, 3, Eigen::Affine> _T;
 
         double _height = generateUniformDouble(MIN_HEIGHT, MAX_HEIGHT);
 };

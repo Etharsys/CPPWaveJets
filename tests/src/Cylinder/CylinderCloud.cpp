@@ -26,6 +26,7 @@ void CylinderCloud::generate_transformation_mat()
         * Eigen::AngleAxisd(alpha, Eigen::Vector3d::UnitX())
         * Eigen::AngleAxisd(beta , Eigen::Vector3d::UnitY())
         * Eigen::AngleAxisd(gamma, Eigen::Vector3d::UnitZ());
+    
 }
 
 void CylinderCloud::compute_transformation_matrix()
@@ -121,8 +122,8 @@ void CylinderCloud::dots_to_vector()
     /*for_each(_face1.begin(),_face1.end(), std::back_inserter(_dots));
     for_each(_face2.begin(),_face2.end(), std::back_inserter(_dots));
     for_each( _tube.begin(), _tube.end(), std::back_inserter(_dots));*/
-    for (const auto& dot : _face1) _dots.emplace_back(dot);
-    for (const auto& dot : _face2) _dots.emplace_back(dot);
+    //for (const auto& dot : _face1) _dots.emplace_back(dot);
+    //for (const auto& dot : _face2) _dots.emplace_back(dot);
     for (const auto& dot :  _tube) _dots.emplace_back(dot);
 }
 
@@ -130,11 +131,36 @@ std::vector<cv::Point3d> CylinderCloud::dots_to_vector(const cv::Point3d& choose
                                                        int radius)
 {
     vector<cv::Point3d> dots;
-    cout << _dots.size() << endl;
     std::copy_if(_dots.begin(), _dots.end(), std::back_inserter(dots), 
         [choosen, radius](const Point3d& p) {
-        return norm(choosen - p) <= radius;
+        return norm(choosen - p) <= radius && p != choosen;
     });
-    cout << dots.size() << endl;
     return dots;
+}
+
+vector<Point3d> CylinderCloud::tube_to_vector()
+{
+    vector<Point3d> points;
+    for (const auto& point : _tube) points.emplace_back(point);
+    return points;
+}
+
+cv::Affine3d CylinderCloud::get_affine(const Point3d& point)
+{
+    // SCALE -> ROTATION -> TRANSLATION !
+    //cout << "eigen : \n" << _T.matrix() << endl;
+    //Eigen::AlignedScaling3d(5, 5, 5); // radius
+    auto T = Eigen::Translation3d(point.x, point.y, point.z)
+        * _T.rotation();
+    auto affine3d = Affine3d();
+    for (u_int i = 0; i < 4; ++i)
+    {
+        for (u_int j = 0; j < 4; ++j)
+        {
+            affine3d.matrix(i, j) = T.matrix().row(i)(j);
+        }
+    }
+    //cout << "opencv : \n" << affine3d.matrix << endl;
+    
+    return affine3d;
 }

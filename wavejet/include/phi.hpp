@@ -28,17 +28,17 @@ class Phi
          * the existent
          * @arg k : 1 st indice as k
          * @arg n : 2 nde indice as (k+n) / 2
-         * @arg val : the value to emplace
+         * @arg value : the value to emplace
          */
-        void set (u_int k, int n, const std::complex<double>& val);
+        void set (u_int k, int n, const std::complex<double>& value);
 
         /**
          * @brief seeing that phi(k, n) = phi*(k,-n), we can set both
          * @arg k : 1 st indice as k
          * @arg n : 2 nde indice as (k+n) / 2
-         * @arg val : the value to emplace
+         * @arg value : the value to emplace
          */
-        void wiseset (u_int k, int n, const std::complex<double>& val);
+        void wiseset (u_int k, int n, const std::complex<double>& value);
 
         /**
          * display the phi container on terminal
@@ -59,7 +59,6 @@ class Phi
          * order (K) + 1 (0 count)
          */
         std::vector<std::vector<std::complex<double>>> _phi { _order + 1 };
-
 
 
 };
