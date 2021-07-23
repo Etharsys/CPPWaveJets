@@ -29,7 +29,7 @@ void WavejetDisplay::display_1st_radius (Viz3d& cam,
     { // draw the first radius
         auto j = (i != ANGLE_DIVISION ? i+1 : 1);
         
-        vector<Point3d> triangle { _f.at(0), _f.at(i), _f.at(j) };
+        vector<Point3d> triangle { _f.at(0) * _radius, _f.at(i) * _radius, _f.at(j) * _radius };
         Mat polygon3 = (Mat_<int>(1,4) << 3, 0, 1, 2);
         string name = to_string(idx) + "triangle" + to_string(i);
         cam.showWidget(name, WMesh { triangle, polygon3 }, transform);
@@ -49,10 +49,10 @@ void WavejetDisplay::display_all_radius(Viz3d& cam,
             i++;
             auto j = (i % ANGLE_DIVISION != 0  ? i+1 : i - ANGLE_DIVISION + 1);
             //cout << i << ", " << j << endl;
-            vector<Point3d> paral { _f.at(i), 
-                                    _f.at(j), 
-                                    _f.at(i - ANGLE_DIVISION),
-                                    _f.at(j - ANGLE_DIVISION) };
+            vector<Point3d> paral { _f.at(i) * _radius, 
+                                    _f.at(j) * _radius, 
+                                    _f.at(i - ANGLE_DIVISION) * _radius,
+                                    _f.at(j - ANGLE_DIVISION) * _radius };
             Mat polygon4 = (Mat_<int>(1,5) << 4, 0, 1, 2, 3);
             string name = to_string(idx) + "paral" + to_string(i);
             cam.showWidget(name, WMesh { paral, polygon4 }, transform);

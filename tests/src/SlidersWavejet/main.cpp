@@ -128,7 +128,7 @@ static void on_trackbar( int, void* )
 
     display_real_wavejets();
 
-    WavejetDisplay wd { phi, k };
+    WavejetDisplay wd { phi, k, 5. };
     wd.compute_and_find_point_position();
     wd.display(cam);
     lock_track.unlock();

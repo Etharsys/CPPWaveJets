@@ -44,7 +44,7 @@ void update()
     auto scale = K == 0 ? 1 : exp(K) / (K * 2);
     phi.wiseset(K, N, complex<double> { 0.1 / (scale), 0.1 / (scale) });
 
-    WavejetDisplay wd { phi, u_int(K) };
+    WavejetDisplay wd { phi, u_int(K), 1. };
     wd.compute_and_find_point_position();
     wd.display(cam);   
 }

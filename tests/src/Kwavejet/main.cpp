@@ -60,7 +60,7 @@ int main(int argc, char** argv)
         auto scale = order == 0 ? 1 : exp(order) / (order * 2);
         phi.wiseset(order, n, complex<double> { 0.1 / (scale), 0.1 / (scale) });
 
-        WavejetDisplay wd { phi, order };
+        WavejetDisplay wd { phi, order, 1. };
         wd.compute_and_find_point_position();
         wd.display(cam);
 

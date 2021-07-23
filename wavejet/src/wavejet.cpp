@@ -74,7 +74,7 @@ void Wavejet::display(cv::viz::Viz3d& cam,
                       const cv::Affine3d& transform, 
                       u_int idx)
 {
-    WavejetDisplay wd { _phi, _order, _nr };
+    WavejetDisplay wd { _phi, _order, 1. };
     wd.compute_and_find_point_position();
     wd.display(cam, transform, idx);
 }
