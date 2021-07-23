@@ -15,18 +15,21 @@
 #include <Eigen/Dense>
 
 
-// max noise percentage for cloud dots
-constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
+// max noise percentage for cloud points
+constexpr double MAX_CLOUD_POINTS_NOISE = 20. / 100;
 
 constexpr int MAX_CLOUD_POINTS = 1000;
 
+// max size of cloud points plan
+constexpr int MAX_POINTS_CLOUD_RADIUS = 10;
 
-class CloudDots
+
+class CloudPoints
 {
     public:
-        CloudDots (const cv::Point3d& origin, 
-                   const cv::Vec3d& vecA, 
-                   const cv::Vec3d& vecB)
+        CloudPoints (const cv::Point3d& origin, 
+                     const cv::Vec3d& vecA, 
+                     const cv::Vec3d& vecB)
             : _origin { origin }, 
               _vecA   { vecA }, 
               _vecB   { vecB }
@@ -35,9 +38,9 @@ class CloudDots
             generate_random_cloud();
         }
 
-        CloudDots () : CloudDots { random_origin(), 
-                                   random_3d_vector(),
-                                   random_3d_vector() }
+        CloudPoints () : CloudPoints { random_origin(), 
+                                       random_3d_vector(),
+                                       random_3d_vector() }
         {
             while (_vecA == _vecB) // faux : -collinear
             {
@@ -62,7 +65,7 @@ class CloudDots
         cv::Point3d centered_p();
 
 
-        std::vector<cv::Point3d> dots_to_vector();
+        std::vector<cv::Point3d> points_to_vector();
 
 
 
@@ -99,12 +102,12 @@ class CloudDots
         void create_all_random_points_on_plan();
 
         /**
-         * @brief apply a random noise on third coordinate of all dots
+         * @brief apply a random noise on third coordinate of all points
          */
         void generate_random_noise();
 
 
-        std::array<cv::Point3d, MAX_CLOUD_POINTS> _dots;
+        std::array<cv::Point3d, MAX_CLOUD_POINTS> _points;
 
         cv::Point3d _origin; 
         cv::Vec3d   _vecA;

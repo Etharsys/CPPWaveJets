@@ -36,8 +36,8 @@ void Wavejet::display_svdV(cv::viz::Viz3d& cam)
     cv::Point3d t2  { _t2(0) * 10, _t2(1) * 10, _t2(2) * 10};
     cv::Point3d nm  { _normal(0) * 10, _normal(1) * 10, _normal(2) * 10};
 
-    cout << "t1 : " << t1 << endl;
-    cout << "t2 : " << t2 << endl;
+    //cout << "t1 : " << t1 << endl;
+    //cout << "t2 : " << t2 << endl;
 
     cam.showWidget("origin", WCloud(vector {ori} , Color::green()));
     cam.showWidget("t1"    , WLine (ori, t1 + ori, Color::blue ()));
@@ -47,7 +47,9 @@ void Wavejet::display_svdV(cv::viz::Viz3d& cam)
 
 cv::Affine3d Wavejet::get_svd()
 {
+    // Init
     auto affine3d = cv::Affine3d();
+    // Rotation
     for (u_int i = 0; i < 3; ++i)
     {
         affine3d.matrix(i, 0) = _t1(i);
@@ -55,7 +57,15 @@ cv::Affine3d Wavejet::get_svd()
         affine3d.matrix(i, 2) = _normal(i);   
     }
     //cout << "opencv : \n" << affine3d.matrix << endl;
+    // Scale
+    auto scale = cv::Affine3d();
+    scale.matrix(0, 0) = _nr;
+    scale.matrix(1, 1) = _nr;
+    scale.matrix(2, 2) = _nr;
 
+    auto newaff = affine3d.matrix * scale.matrix;
+    affine3d = cv::Affine3d(newaff);
+    // Translation
     return affine3d.translate(cv::Point3d {_p(0), _p(1), _p(2)} );
 }
 
@@ -64,9 +74,9 @@ void Wavejet::display(cv::viz::Viz3d& cam,
                       const cv::Affine3d& transform, 
                       u_int idx)
 {
-    WavejetDisplay wd { _phi, _order };
+    WavejetDisplay wd { _phi, _order, _nr };
     wd.compute_and_find_point_position();
-    wd.display(cam, transform, _nr, idx);
+    wd.display(cam, transform, idx);
 }
 
 void Wavejet::display(cv::viz::Viz3d& cam, u_int idx)

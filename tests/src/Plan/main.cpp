@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "wavejet.hpp"
-#include "CloudDots.hpp"
+#include "PlanCloud.hpp"
 
 #include <opencv2/viz/viz3d.hpp>
 #include <Eigen/Core>
@@ -27,7 +27,7 @@ Viz3d init_window()
 
 void display([[maybe_unused]] Viz3d& cam, 
              [[maybe_unused]] Wavejet& wj,
-             [[maybe_unused]] CloudDots& cd)
+             [[maybe_unused]] CloudPoints& cd)
 {
     wj.display_svdV(cam);
     wj.display(cam);
@@ -42,10 +42,10 @@ int main(int argc, char** argv)
     }
     auto cam = init_window();
 
-    CloudDots cd;
+    CloudPoints cd;
     Wavejet wj { ORDER, 
                  cd.centered_p(), 
-                 cd.dots_to_vector(), 
+                 cd.points_to_vector(), 
                  NEIGHBOURHOOD_RADIUS};
 
     //wj._phi.wiseset(0, 0, std::complex<double> { 0, 0 });

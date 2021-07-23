@@ -37,8 +37,10 @@ class Wavejet
               _nr { neighbor_radius }
         {
             assert(neighbor_radius >= 0);
+            
+            std::cout << "Number of neighbors : " << neighbors.size() << std::endl;
+            assert(neighbors.size() > 10); // enough points ?
             /*std::cout << "choosen point : " << _p << std::endl;
-            std::cout << "Number of selected points : " << neighbors.size() << std::endl;
             std::cout << neighbors << std::endl;
             std::cout << "EIGEN : \n" << std::endl; 
             std::cout << _neighbors.adjoint() << std::endl; */
@@ -87,9 +89,9 @@ class Wavejet
     private :
 
         /**
-         * @brief transform a vector of dots in a eigen matrix
-         * @arg neighbors : the container of dots (as vector)
-         * @return all dots as eigen matrix (row = dots and col = x,y,z)
+         * @brief transform a vector of points in a eigen matrix
+         * @arg neighbors : the container of points (as vector)
+         * @return all points as eigen matrix (row = points and col = x,y,z)
          */
         Eigen::MatrixXd list_to_matrixXd(const Neighbors& neighbors);
 
@@ -109,7 +111,7 @@ class Wavejet
 
         /**
          * @brief get the cartesian coordinates of neighbors
-         * @arg neighbors_principal_vectors : the neighbors dots set principal vectors
+         * @arg neighbors_principal_vectors : the neighbors points set principal vectors
          * @return an array of all points in cartesian coordinates : (matrix:_nneigh x 3)
          */
         Eigen::MatrixXd neighbours_coords(const Eigen::Matrix3d& neighbors_principal_vectors);
@@ -138,7 +140,7 @@ class Wavejet
         unsigned int     _ncolPhi;       // number of Phi matrix columns
 
         Eigen::Vector3d  _p;             // entry point (1x3)
-        Eigen::MatrixXd  _neighbors;     // neighbors dots (nx3)
+        Eigen::MatrixXd  _neighbors;     // neighbors points (nx3)
         double           _nr;            // neighborhood radius (>0 !)
 
         Eigen::Vector3d  _t1;            // neighbors average length vector

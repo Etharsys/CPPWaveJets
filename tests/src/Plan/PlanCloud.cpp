@@ -1,4 +1,4 @@
-#include "CloudDots.hpp"
+#include "PlanCloud.hpp"
 
 
 using namespace std;
@@ -6,18 +6,18 @@ using namespace cv;
 using namespace viz;
 
 
-void CloudDots::generate_random_cloud()
+void CloudPoints::generate_random_cloud()
 {
     make_vector_square();
     create_all_random_points_on_plan();
     generate_random_noise();
 }
 
-void CloudDots::display(Viz3d& cam)
+void CloudPoints::display(Viz3d& cam)
 {
     // out stream
     
-    /*for (const auto& p : _dots)
+    /*for (const auto& p : _points)
     {
         cout << p << endl;
     }
@@ -28,7 +28,7 @@ void CloudDots::display(Viz3d& cam)
     
     
     // opencv
-    cam.showWidget("plan dots", WCloud(_dots, Color::black()));
+    cam.showWidget("plan points", WCloud(_points, Color::black()));
     /*
     Point3d p1 { _vecA[0] * 10, _vecA[1] * 10, _vecA[2] * 10 };
     cam.showWidget("v1", WLine(_origin, p1 + _origin, Color::green()));
@@ -39,7 +39,7 @@ void CloudDots::display(Viz3d& cam)
     */
 }
 
-Point3d CloudDots::centered_p()
+Point3d CloudPoints::centered_p()
 {
     const auto compare_by_dist = 
         [this](const Point3d& p1, const Point3d& p2) 
@@ -52,10 +52,10 @@ Point3d CloudDots::centered_p()
                   + pow(p2.z - _origin.z, 2));
         };
 
-    return *std::min_element(_dots.begin(), _dots.end(), compare_by_dist);
+    return *std::min_element(_points.begin(), _points.end(), compare_by_dist);
 }
 
-void CloudDots::make_vector_square()
+void CloudPoints::make_vector_square()
 {
     Eigen::Vector3d a { _vecA[0], _vecA[1], _vecA[2] };
     Eigen::Vector3d b { _vecB[0], _vecB[1], _vecB[2] };
@@ -65,57 +65,58 @@ void CloudDots::make_vector_square()
     normalize(_vecB, _vecB);
 }
 
-Point3d CloudDots::random_origin()
+Point3d CloudPoints::random_origin()
 {
-    return Point3d { generateUniformDouble(), 
-                     generateUniformDouble(),
-                     generateUniformDouble() };
+    return Point3d { generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS), 
+                     generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS),
+                     generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS) };
 }
 
-Vec3d CloudDots::random_3d_vector()
+Vec3d CloudPoints::random_3d_vector()
 {
-    return Vec3d { generateUniformDouble(), 
-                   generateUniformDouble(), 
-                   generateUniformDouble() };
+    return Vec3d { generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS), 
+                   generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS), 
+                   generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS) };
 }
 
-void CloudDots::create_all_random_points_on_plan()
+void CloudPoints::create_all_random_points_on_plan()
 {
     for (unsigned int i = 0; i < MAX_CLOUD_POINTS; ++i)
     {
-        _dots.at(i) = create_random_point_on_plan();
+        _points.at(i) = create_random_point_on_plan();
     }
 }
 
-Point3d CloudDots::create_random_point_on_plan()
+Point3d CloudPoints::create_random_point_on_plan()
 {
-    auto alpha = generateUniformDouble();
-    auto beta  = generateUniformDouble();
+    auto alpha = generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS);
+    auto beta  = generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS);
     double x = (alpha * _vecA[0] + beta * _vecB[0] + _origin.x);
     double y = (alpha * _vecA[1] + beta * _vecB[1] + _origin.y);
     double z = (alpha * _vecA[2] + beta * _vecB[2] + _origin.z);
     return Point3d { x, y, z };
 }
 
-void CloudDots::generate_random_noise()
+void CloudPoints::generate_random_noise()
 {
-    transform(_dots.begin(), _dots.end(), _dots.begin(), 
+    transform(_points.begin(), _points.end(), _points.begin(), 
         [](const Point3d& p) 
         {
-            double z = generateUniformDouble() * MAX_CLOUD_DOTS_NOISE;
+            double z = generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS) 
+                        * MAX_CLOUD_POINTS_NOISE;
             return Point3d { p.x, p.y, p.z + z}; 
         }
     );
 }
 
-vector<Point3d> CloudDots::dots_to_vector()
+vector<Point3d> CloudPoints::points_to_vector()
 {
-    vector<Point3d> dots_vec;
+    vector<Point3d> points_vec;
 
-    for (const auto& dot : _dots)
+    for (const auto& point : _points)
     {
-        dots_vec.emplace_back(dot);
+        points_vec.emplace_back(point);
     }
 
-    return dots_vec;
+    return points_vec;
 }

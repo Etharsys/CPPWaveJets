@@ -55,7 +55,7 @@ class Phi
         u_int _order;
 
         /**
-         * container des phi(k,n), n has no size set and k is 
+         * container of phi(k,n), n has no size set and k is 
          * order (K) + 1 (0 count)
          */
         std::vector<std::vector<std::complex<double>>> _phi { _order + 1 };

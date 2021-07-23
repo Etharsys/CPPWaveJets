@@ -13,17 +13,15 @@
 #include <algorithm>
 
 
-// wavejet order demo
-constexpr unsigned int ORDER = 2;
-constexpr double NEIGHBOURHOOD_RADIUS = 0.5;
-
-
 using namespace cv;
 using namespace viz;
 using namespace std;
 
 
 namespace fs = std::filesystem;
+
+constexpr int MIN_POINTS = 15;
+constexpr double RADIUS_STEP = 1.1;
 
 
 
@@ -42,12 +40,23 @@ vector<Point3d> enough_near_points(const vector<Point3d>& pts,
 {
     vector<cv::Point3d> res;
     std::copy_if(pts.begin(), pts.end(), std::back_inserter(res), 
-        [choosen, radius](const Point3d& p) {
+        [choosen, radius](const Point3d& p) 
+    {
         return norm(choosen - p) <= radius && p != choosen;
     });
     return res;
 }
 
+int get_variable(const string& msg, int min, int max)
+{
+    int var = -1;
+    while (var < min || var > max)
+    {
+        cout << msg << "(" << min << "," << max << ") : ";
+        cin >> var;
+    }
+    return var;
+}
 
 int main(int argc, char** argv)
 {
@@ -55,13 +64,14 @@ int main(int argc, char** argv)
     {
         cout << "wrong args : " << argc << argv << endl;
     }
+    auto order = get_variable("Enter a wavejet order : ", 2, 10);
     auto cam = init_window();
 
     // BUNNY PART
-    ifstream bunny_txt;
+    ifstream surface_txt;
     string path = fs::current_path().string() + "/../../resources/cow.txt";
-    bunny_txt.open(path);
-    if (!bunny_txt.is_open())
+    surface_txt.open(path);
+    if (!surface_txt.is_open())
     {
         cerr << "Cannot open bunny.txt with path : " << path << endl;
         return 1;
@@ -69,43 +79,38 @@ int main(int argc, char** argv)
     string line;
     vector<Point3d> pts;
 
-    while(getline(bunny_txt, line))
+    while(getline(surface_txt, line))
     {
         double x = stod(line.substr(0, line.find(' ')));
         line = line.substr(line.find(' ') + 1);
         double y = stod(line.substr(0, line.find(' ')));
         line = line.substr(line.find(' ') + 1);
         double z = stod(line.substr(0, line.find(' ')));
-        pts.emplace_back(Point3d { x * 1000, y * 1000, z * 1000 });
+        pts.emplace_back(Point3d { x, y, z });
     }
-    cam.showWidget("rabbit", WCloud(pts, Color::black()));
-
-    auto compare_max = [](const Point3d& p1, const Point3d& p2) 
-    { 
-        return norm(p1) < norm(p2);
-    };
-
-    auto farest_point = *max_element(pts.begin(), pts.end(), compare_max);
-    vector<double> vec_max { farest_point.x, farest_point.y, farest_point.z };
-    auto max = *max_element(vec_max.begin(), vec_max.end());
-    double neighbourhood_radius = max / 10;
-    cout << "Neighbourhood radius : " << neighbourhood_radius << endl;
+    cam.showWidget("cloud", WCloud(pts, Color::black()));
+    //cout << pts << endl;
 
     // WAVEJET PART
     u_int cpt = 0;
     for (auto& point : pts)
     {
-        //point = pts.at(30);
+        //point = pts.at(14);
         cout << "treating ... " << cpt << endl;
-        Wavejet wj {ORDER, 
-                    point, 
-                    enough_near_points(pts, point, neighbourhood_radius), 
-                    neighbourhood_radius};
+        double neighbourhood_radius = 0.01;
+        vector<Point3d> neighbors {};
+        while (neighbors.size() <= MIN_POINTS) 
+        {
+            neighbors = enough_near_points(pts, point, neighbourhood_radius);
+            neighbourhood_radius *= RADIUS_STEP;
+            //cout << neighbors.size() << endl;
+        }
+
+        Wavejet wj {u_int(order), point, neighbors, neighbourhood_radius };
         
-        wj.display_svdV(cam);
         wj.display(cam, wj.get_svd(), cpt);
         cpt ++;
-        if (cpt >= 3) break; // too long else ...
+        if (cpt >= 100) break; // too long else ...
     }
 
     cam.spin();

@@ -49,12 +49,12 @@ void update()
     wd.display(cam);   
 }
 
-void KeyboardViz3d(const viz::KeyboardEvent &w, void *t)
+void KeyboardViz3d(const viz::KeyboardEvent &key, void *t)
 {
     viz::Viz3d *fen=(viz::Viz3d*)t;
-    if (w.action)
+    if (key.action)
     {
-        switch(w.code)
+        switch(key.code)
         {
             case 'p' :
                 K = K == 10 ? 10 : K+1;

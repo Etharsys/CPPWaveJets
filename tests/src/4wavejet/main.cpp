@@ -39,10 +39,10 @@ int main(int argc, char** argv)
     Phi phi { u_int(K) };
     phi.of_zeros();
 
-    phi.wiseset(2, 2, complex<double> { 0.05, 0 });
-    phi.wiseset(2, 0, complex<double> { 0.1, 0 });
+    //phi.wiseset(2, 2, complex<double> { 0.05, 0 });
+    //phi.wiseset(2, 0, complex<double> { 0.1, 0 });
 
-    WavejetDisplay wd { phi, u_int(K) };
+    WavejetDisplay wd { phi, u_int(K), 1. };
     wd.compute_and_find_point_position();
     wd.display(cam); 
 

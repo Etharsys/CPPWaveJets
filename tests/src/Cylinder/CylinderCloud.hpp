@@ -17,14 +17,17 @@
 #include <Eigen/Geometry> 
 
 
-// max noise percentage for cloud dots
-constexpr double MAX_CLOUD_DOTS_NOISE = 20. / 100;
+// max noise percentage for cloud points
+constexpr double MAX_CLOUD_POINTS_NOISE = 20. / 100;
 
-constexpr unsigned int MIN_HEIGHT = 10;
-constexpr unsigned int MAX_HEIGHT = 20;
+constexpr unsigned int MIN_HEIGHT = 5;
+constexpr unsigned int MAX_HEIGHT = 10;
 
 // max points for cloud points
-constexpr unsigned int DOTS_THRESHOLD = 500;
+constexpr unsigned int POINTS_THRESHOLD = 1000;
+
+// max size of cloud points plan
+constexpr int MAX_POINTS_CLOUD_RADIUS = 10;
 
 
 class CylinderCloud
@@ -37,7 +40,7 @@ class CylinderCloud
         }
 
         /**
-         * @brief generate a random cylinder dot cloud with random size,
+         * @brief generate a random cylinder point cloud with random size,
          * rotation and position
          */
         CylinderCloud () : CylinderCloud { random_origin() }
@@ -55,12 +58,12 @@ class CylinderCloud
         void display(cv::viz::Viz3d& cam);
 
         /**
-         * @brief opencv display red dots if distance < radius
+         * @brief opencv display red points if distance < radius
          * @arg cam : the opencv, viz camera (window)
-         * @arg p : a selected point
+         * @arg point : a selected point
          * @arg radius : the radius of neighbourhood
          */
-        void display(cv::viz::Viz3d& cam, const cv::Point3d& p, int radius);
+        void display(cv::viz::Viz3d& cam, const cv::Point3d& point, int radius);
 
 
         /**
@@ -70,18 +73,18 @@ class CylinderCloud
 
         /**
          * @brief Transform the array container to the same vector container
-         * @arg p : a selected point
+         * @arg choosen : a selected point
          * @arg radius : the radius of neighbourhood
-         * @return the list of dots which are nearest than radius
+         * @return the list of points which are nearest than radius
          */
-        std::vector<cv::Point3d> dots_to_vector(const cv::Point3d& choosen, int radius);
+        std::vector<cv::Point3d> points_to_vector(const cv::Point3d& choosen, int radius);
 
         std::vector<cv::Point3d> tube_to_vector();
 
         cv::Affine3d get_affine(const cv::Point3d& point);
 
 
-        std::vector<cv::Point3d> _dots;
+        std::vector<cv::Point3d> _points;
 
 
 
@@ -111,7 +114,7 @@ class CylinderCloud
         void create_all_random_points_on_plan();
 
         /**
-         * @brief apply a random noise on third coordinate of all dots
+         * @brief apply a random noise on third coordinate of all points
          */
         void generate_random_noise();
 
@@ -122,27 +125,27 @@ class CylinderCloud
         void generate_transformation_mat();
 
         /**
-         * @brief compute for each dot of _face1, _face2 and _tube
-         * the transformation matrix : dot = _T * dot
+         * @brief compute for each point of _face1, _face2 and _tube
+         * the transformation matrix : point = _T * point
          */
         void compute_transformation_matrix();
 
         /**
-         * @brief compute the transformation matrix for a dot
-         * @arg dot : dot to transform
-         * @return the transformed dot
+         * @brief compute the transformation matrix for a point
+         * @arg point : point to transform
+         * @return the transformed point
          */
-        cv::Point3d compute_transformation_matrix(const cv::Point3d& dot);
+        cv::Point3d compute_transformation_matrix(const cv::Point3d& point);
 
         /**
          * @brief Transform the array container to the same vector container
          */
-        void dots_to_vector();
+        void points_to_vector();
 
 
-        std::array<cv::Point3d, DOTS_THRESHOLD * 2> _face1;
-        std::array<cv::Point3d, DOTS_THRESHOLD * 2> _face2;
-        std::array<cv::Point3d, DOTS_THRESHOLD * 4> _tube;
+        std::array<cv::Point3d, POINTS_THRESHOLD * 2> _face1;
+        std::array<cv::Point3d, POINTS_THRESHOLD * 2> _face2;
+        std::array<cv::Point3d, POINTS_THRESHOLD * 4> _tube;
 
         Eigen::Transform<double, 3, Eigen::Affine> _T;
 

@@ -15,17 +15,16 @@
 // number of angle division for wavejet render
 constexpr unsigned int ANGLE_DIVISION  = 20; // 64
 // number of radius division for wavejet render
-constexpr unsigned int RADIUS_DIVISION = 5;  //12
-// initial wavejet render radius (can be scale)
-constexpr unsigned int WAVEJET_DISPLAY_RADIUS = 3;
+constexpr unsigned int RADIUS_DIVISION = 3;  //12
 
 
 class WavejetDisplay
 {
     public:
-        WavejetDisplay (const Phi& phi, u_int order)
+        WavejetDisplay (const Phi& phi, u_int order, double radius)
                     : _phi   { phi },
-                      _order { order }
+                      _order { order },
+                      _radius { radius }
         { }
 
         /**
@@ -39,12 +38,10 @@ class WavejetDisplay
          * render the display 
          * @arg cam : the opencv camera
          * @arg transform : the opencv affine3d transformation
-         * @arg radius_scale : the scale for wavejet render
          * @arg idx : wavejet id
          */
         void display (cv::viz::Viz3d& cam, 
                       const cv::Affine3d& transform, 
-                      double radius_scale, 
                       u_int idx = 0);
         
         /**
@@ -60,7 +57,6 @@ class WavejetDisplay
          */
         void display_1st_radius (cv::viz::Viz3d& cam, 
                                  const cv::Affine3d& transform, 
-                                 double radius_scale, 
                                  u_int idx = 0);
 
         /**
@@ -68,7 +64,6 @@ class WavejetDisplay
          */
         void display_all_radius (cv::viz::Viz3d& cam, 
                                  const cv::Affine3d& transform, 
-                                 double radius_scale, 
                                  u_int idx = 0);
 
         /**
@@ -81,6 +76,8 @@ class WavejetDisplay
 
         Phi   _phi;
         u_int _order;
+
+        double _radius;
 
         
         std::vector<cv::Point3d> _f; 

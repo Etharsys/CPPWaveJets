@@ -4,10 +4,6 @@
 #include <chrono>
 
 
-// max size of cloud points plan
-constexpr int MAX_DOTS_CLOUD_RADIUS = 10;
-
-
 // select seed from time
 inline double generateUniformDouble(double min, double max) 
 {
@@ -19,11 +15,6 @@ inline double generateUniformDouble(double min, double max)
     // uniform real distribution (ici entre 1 et 6, sur des float)
     std::uniform_real_distribution<double> uniformRealDistribution(min, max);
     return uniformRealDistribution(generator);
-}
-
-inline double generateUniformDouble() 
-{
-    return generateUniformDouble(-MAX_DOTS_CLOUD_RADIUS, MAX_DOTS_CLOUD_RADIUS);
 }
 
 inline double generateUniformDouble(double max) 

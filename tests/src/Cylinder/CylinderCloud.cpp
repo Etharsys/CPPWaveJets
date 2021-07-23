@@ -13,7 +13,7 @@ void CylinderCloud::generate_random_cloud()
     generate_transformation_mat();
     compute_transformation_matrix();
     //generate_random_noise();
-    dots_to_vector();
+    points_to_vector();
 }
 
 void CylinderCloud::generate_transformation_mat()
@@ -31,32 +31,32 @@ void CylinderCloud::generate_transformation_mat()
 
 void CylinderCloud::compute_transformation_matrix()
 {
-    for (auto& dot : _face1)
-        dot = compute_transformation_matrix(dot);
-    for (auto& dot : _face2)
-        dot = compute_transformation_matrix(dot);
-    for (auto& dot : _tube)
-        dot = compute_transformation_matrix(dot);
+    for (auto& point : _face1)
+        point = compute_transformation_matrix(point);
+    for (auto& point : _face2)
+        point = compute_transformation_matrix(point);
+    for (auto& point : _tube)
+        point = compute_transformation_matrix(point);
 }
 
-Point3d CylinderCloud::compute_transformation_matrix(const Point3d& dot)
+Point3d CylinderCloud::compute_transformation_matrix(const Point3d& point)
 {
-    Eigen::Vector3d eigen_dot { dot.x, dot.y, dot.z };
-    eigen_dot = _T * eigen_dot;
-    return Point3d { eigen_dot(0), eigen_dot(1), eigen_dot(2) };
+    Eigen::Vector3d eigen_point { point.x, point.y, point.z };
+    eigen_point = _T * eigen_point;
+    return Point3d { eigen_point(0), eigen_point(1), eigen_point(2) };
 }
 
 void CylinderCloud::display(Viz3d& cam)
 { //opencv display part
-    cam.showWidget("dots", WCloud(_dots, Color::black()));
+    cam.showWidget("points", WCloud(_points, Color::black()));
     //cam.showWidget("orig", WCloud(vector {_origin}, Color::green()));
 }
 
-void CylinderCloud::display(cv::viz::Viz3d& cam, const cv::Point3d& p, int radius)
+void CylinderCloud::display(cv::viz::Viz3d& cam, const cv::Point3d& point, int radius)
 {
-    auto dots = dots_to_vector(p, radius);
-    cam.showWidget("dots_in_radius", WCloud(dots, Color::blue()));
-    cam.showWidget("selected_p", WCloud(vector {p}, Color::red()));
+    auto points = points_to_vector(point, radius);
+    cam.showWidget("points_in_radius", WCloud(points, Color::blue()));
+    cam.showWidget("selected_p", WCloud(vector { point }, Color::red()));
 }
 
 Point3d CylinderCloud::centered_p()
@@ -72,14 +72,14 @@ Point3d CylinderCloud::centered_p()
 
 Point3d CylinderCloud::random_origin()
 {
-    return Point3d { generateUniformDouble(), 
-                     generateUniformDouble(),
-                     generateUniformDouble() };
+    return Point3d { generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS), 
+                     generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS),
+                     generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS) };
 }
 
 void CylinderCloud::create_all_random_points_on_plan()
 {
-    for (u_int i = 0; i < DOTS_THRESHOLD * 2; ++i)
+    for (u_int i = 0; i < POINTS_THRESHOLD * 2; ++i)
     {
         _face1.at(i) = create_random_point_on_plan( _height);
         _face2.at(i) = create_random_point_on_plan(-_height);
@@ -93,14 +93,14 @@ void CylinderCloud::create_all_random_points_on_plan()
 cv::Point3d CylinderCloud::create_random_point_on_cyl()
 {
     auto theta  = generateUniformDouble(0, 2*M_PI);
-    auto radius = MAX_DOTS_CLOUD_RADIUS;
+    auto radius = MAX_POINTS_CLOUD_RADIUS;
     auto z      = generateUniformDouble(-_height, _height);
     return Point3d { radius * cos(theta), radius * sin(theta), z };
 }
 
 Point3d CylinderCloud::create_random_point_on_plan(double z)
 {
-    auto radius = generateUniformDouble(0, MAX_DOTS_CLOUD_RADIUS);
+    auto radius = generateUniformDouble(0, MAX_POINTS_CLOUD_RADIUS);
     auto theta  = generateUniformDouble(0, 2*M_PI);
 
     return Point3d { radius * cos(theta), radius * sin(theta), z };
@@ -108,34 +108,35 @@ Point3d CylinderCloud::create_random_point_on_plan(double z)
 
 void CylinderCloud::generate_random_noise()
 {
-    transform(_dots.begin(), _dots.end(), _dots.begin(), 
-        [](const Point3d& p) 
+    transform(_points.begin(), _points.end(), _points.begin(), 
+        [](const Point3d& point) 
         {
-            double z = generateUniformDouble() * MAX_CLOUD_DOTS_NOISE;
-            return Point3d { p.x, p.y, p.z + z}; 
+            double z = generateUniformDouble(-MAX_POINTS_CLOUD_RADIUS, MAX_POINTS_CLOUD_RADIUS) 
+                        * MAX_CLOUD_POINTS_NOISE;
+            return Point3d { point.x, point.y, point.z + z}; 
         }
     );
 }
 
-void CylinderCloud::dots_to_vector()
+void CylinderCloud::points_to_vector()
 {
-    /*for_each(_face1.begin(),_face1.end(), std::back_inserter(_dots));
-    for_each(_face2.begin(),_face2.end(), std::back_inserter(_dots));
-    for_each( _tube.begin(), _tube.end(), std::back_inserter(_dots));*/
-    //for (const auto& dot : _face1) _dots.emplace_back(dot);
-    //for (const auto& dot : _face2) _dots.emplace_back(dot);
-    for (const auto& dot :  _tube) _dots.emplace_back(dot);
+    /*for_each(_face1.begin(),_face1.end(), std::back_inserter(_points));
+    for_each(_face2.begin(),_face2.end(), std::back_inserter(_points));
+    for_each( _tube.begin(), _tube.end(), std::back_inserter(_points));*/
+    //for (const auto& point : _face1) _points.emplace_back(point);
+    //for (const auto& point : _face2) _points.emplace_back(point);
+    for (const auto& point :  _tube) _points.emplace_back(point);
 }
 
-std::vector<cv::Point3d> CylinderCloud::dots_to_vector(const cv::Point3d& choosen, 
-                                                       int radius)
+std::vector<cv::Point3d> CylinderCloud::points_to_vector(const cv::Point3d& choosen, 
+                                                         int radius)
 {
-    vector<cv::Point3d> dots;
-    std::copy_if(_dots.begin(), _dots.end(), std::back_inserter(dots), 
-        [choosen, radius](const Point3d& p) {
-        return norm(choosen - p) <= radius && p != choosen;
+    vector<cv::Point3d> points;
+    std::copy_if(_points.begin(), _points.end(), std::back_inserter(points), 
+        [choosen, radius](const Point3d& point) {
+        return norm(choosen - point) <= radius && point != choosen;
     });
-    return dots;
+    return points;
 }
 
 vector<Point3d> CylinderCloud::tube_to_vector()
